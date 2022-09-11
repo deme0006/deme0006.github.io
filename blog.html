@@ -4,23 +4,54 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Blog</title>
 	<style>
-		nav a {
-			font-family: Arial, Helvetica, sans-serif;
+		@import "./css/header.css";
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		.content {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+
+		a.navigation-menu-content-blog {
+			background: #333;
+			color: #fff;
+		}
+
+		a.navigation-menu-content-blog:hover {
+			color: #fff;
+			background: #333;
+			border: none;
+		}
+
+		main {
+			flex: 1 1 auto;
 		}
 	</style>
 </head>
 
 <body>
 	<main>
-		<nav>
-			<a href="/index.html">Home</a>
-			<a href="/profile.html">Profile</a>
-			<a href="/dashboard.html">Dashboard</a>
-			<a href="/faq.html">FAQ</a>
-			<a href="/blog.html">Blog</a>
-		</nav>
+		<div class="content">
+			<header>
+				<nav class="navigation-menu">
+					<div class="navigation-menu-content">
+						<a class="navigation-menu-content-index" href="/index.html">Home</a>
+						<a class="navigation-menu-content-profile" href="/profile.html">Profile</a>
+						<a class="navigation-menu-content-dashboard" href="/dashboard.html">Dashboard</a>
+						<a class="navigation-menu-content-faq" href="/faq.html">FAQ</a>
+						<a class="navigation-menu-content-blog" href="/blog.html">Blog</a>
+					</div>
+				</nav>
+			</header>
+		</div>
 	</main>
 </body>
 
