@@ -18,9 +18,10 @@
     transform: scale(1.1);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 20px #aaa;
+    box-shadow: 0 0 20px #ccc;
     transition: 1s ease-out;
     border-radius: 10px;
+    background: #333;
 }
 
 .aside:hover {
@@ -29,9 +30,10 @@
 }
 
 .aside-header {
+    color: #fff;
     padding: 5px 0;
     margin-bottom: 3px;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #fff;
     text-align: center;
 }
 
@@ -42,18 +44,18 @@
 }
 
 .aside-content:hover {
-    background: #333;
-    color: #fff;
+    background: #fff;
+    color: #333;
     
 }
 
 .aside-content:hover .aside-content-text {
-    color: #fff;
+    color: #333;
 }
 
 .aside-content-text {
     text-align: center;
     text-decoration: none;
-    color: rgb(63, 63, 63)
+    color: #fff;
 }
 
