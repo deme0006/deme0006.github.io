@@ -26,13 +26,20 @@
     align-items: center;
 }
 
+.footer-contact-phone {
+    margin-top: 5px;
+}
+
 .footer-contact-icons {
     display: flex;
 }
 
 .footer-contact-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 25px;
-    margin: 6px;
+    margin: 5px;
 }
 
 .footer-contact-icon {
