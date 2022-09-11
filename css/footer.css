@@ -37,6 +37,7 @@
 
 .footer-contact-icon {
     opacity: 40%;
+    transition: 0.5s ease;
 }
 
 .footer-contact-icon:hover {
