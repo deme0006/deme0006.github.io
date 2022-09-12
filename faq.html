@@ -5,11 +5,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
+	<script src="js/faq.js" defer></script>
 	<title>FAQ</title>
 	<style>
 		@import "./css/header.css";
 		@import "./css/footer.css";
 		@import "./css/aside.css";
+
+		@keyframes arrow-pulse-unchecked {
+			to {
+				transform: rotateZ(135deg) translateY(-5px) translateX(5px);
+			}
+		}
+
+		@keyframes arrow-pulse-checked {
+			to {
+				transform: scale(1.1);
+			}
+		}
 
 		* {
 			margin: 0;
@@ -38,6 +51,74 @@
 
 		main {
 			flex: 1 1 auto;
+			margin-top: 100px;
+		}
+
+		.main-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-header {
+			margin: 0px 50px 50px;
+		}
+
+		.main-content-cards {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 40px;
+		}
+
+		.main-content-card {
+			max-width: 30%;
+			box-shadow: 0 0 20px #ccc;
+			border-radius: 10px;
+			padding: 20px 20px 10px;
+			margin: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.main-content-card-question {
+			margin-bottom: 15px;
+			font-size: 1.2em;
+		}
+
+		.main-content-card-answer {
+			font-size: 0;
+			transition: 1s ease;
+			align-self: flex-start;
+			font-style: italic;
+			color: #000000a9
+		}
+
+		.main-content-card-answer a {
+			color: #000000a9;
+			font-weight: bold;
+		}
+
+		.main-content-card-answer a:hover {
+			color: #000;
+		}
+
+		.main-content-card:hover .main-content-card-arrow {
+			animation: arrow-pulse-unchecked 1s ease-out infinite alternate;
+		}
+
+		.main-content-card-arrow {
+			width: 15px;
+			height: 15px;
+			border-top: 3px solid #000;
+			border-right: 3px solid #000;
+			transform: rotateZ(135deg);
+			margin: 10px;
 		}
 	</style>
 </head>
@@ -57,6 +138,64 @@
 		</header>
 
 		<main>
+			<div class="main-content">
+				<h1 class="main-header">Frequently Asked Questions</h1>
+				<div class="main-content-cards">
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">How can you print a document from your laptop at HZ?</h4>
+						<p class="main-content-card-answer">You need first to log into your account <span><a
+									href="https://print.hz.nl/" target="_blank" rel="noopener">on HZ print
+									page</a></span>.
+							Then you upload all necessary files you want to print. After that
+							you can set additional settings and confirm your print request. Finally, you come to the
+							printer itself and get your document (using your student card!).</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">How can you scan a document a send it to your laptop at
+							HZ?</h4>
+						<p class="main-content-card-answer">You can find everything you need <span><a
+									href="https://hzuniversity.topdesk.net/tas/public/ssp/content/detail/knowledgeitem?unid=d065a4e8a56d47dcbd0ffb9cdf78f20b&origin=searchPreview"
+									target="_blank" rel="noopener">here</a></span>.
+						</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">How can I buy something (like when I sign up for the IT
+							introduction
+							event at Friday 16/09) on the HZ web shop?</h4>
+						<p class="main-content-card-answer">You can do that <span><a href="https://webshop.hz.nl/"
+									target="_blank" rel="noopener">on
+									this page</a></span>.</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">Where can I find the latest instructions on what to do
+							when you are
+							sick / show symptoms of COVID?</h4>
+						<p class="main-content-card-answer">You might want to use <span><a
+									href="https://hz.nl/en/current-affairs/coronavirus" target="_blank"
+									rel="noopener">this link</a></span>.</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">How can you book a project space in one of the wings?
+						</h4>
+						<p class="main-content-card-answer">You should use <span><a
+									href="https://hzuniversity.topdesk.net/tas/public/ssp/" target="_blank"
+									rel="noopener">this portal</a></span>.</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+					<div class="main-content-card">
+						<h4 class="main-content-card-question">What are the instructions if you want to park your car at
+							the HZ
+							parking lot?</h4>
+						<p class="main-content-card-answer">Using your HZ pass, you can freely park there.
+						</p>
+						<div class="main-content-card-arrow"></div>
+					</div>
+				</div>
+			</div>
 			<aside>
 				<div class="aside">
 					<h3 class="aside-header">Useful links</h3>
