@@ -5,11 +5,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
+	<script src="js/blog.js" defer></script>
 	<title>Blog</title>
 	<style>
 		@import "./css/header.css";
 		@import "./css/footer.css";
 		@import "./css/aside.css";
+
+		@keyframes button-pulse {
+			to {
+				transform: translateY(-5px);
+			}
+		}
 
 		* {
 			margin: 0;
@@ -37,6 +44,115 @@
 
 		main {
 			flex: 1 1 auto;
+			margin-top: 100px;
+		}
+
+		.main-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-content-cards {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+			margin-bottom: 40px;
+
+		}
+
+		.main-sample-card {
+			display: none;
+			opacity: 0;
+			z-index: 1001;
+			margin: 0 25%;
+			position: fixed;
+			top: 30%;
+			background: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 50px #444;
+			transition: 0.5s ease;
+		}
+
+		.main-sample-card-header {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.main-sample-card-close {
+			position: absolute;
+			font-size: 1.5em;
+			top: 8px;
+			right: 8px;
+			padding: 0 5px;
+			cursor: pointer;
+			color: #ccc;
+			border: 2px solid #ccc;
+			border-radius: 5px;
+			transition: 0.5s ease;
+		}
+
+		.main-sample-card-close:hover {
+			color: #333;
+			border-color: #333;
+		}
+
+		.main-sample-card-text {}
+
+		.main-content-card-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-content-card {
+			min-width: 200px;
+			max-width: 30%;
+			box-shadow: 0 0 20px #ccc;
+			border-radius: 10px;
+			padding: 5px 20px 10px;
+			margin: 6px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.main-content-card-header {
+			text-align: center;
+			border-bottom: 1px dashed #000;
+			margin: 0 10px;
+			padding: 10px;
+		}
+
+		.main-content-card-text {
+			padding: 10px 10px 15px;
+			text-align: justify;
+		}
+
+		.main-content-card-button {
+			font-size: 1em;
+			border-radius: 5px;
+			padding: 3px;
+			box-shadow: 0 0 10px #ccc;
+			background: transparent;
+			cursor: pointer;
+			transition: 0.25s ease-out;
+			border: 2px solid #333;
+		}
+
+		.main-content-card:hover .main-content-card-button {
+			animation: button-pulse 1.5s ease 0.5s infinite alternate;
+		}
+
+		.main-content-card-button:hover {
+			background: #333;
+			color: #fff;
+
 		}
 	</style>
 </head>
@@ -56,6 +172,108 @@
 		</header>
 
 		<main>
+			<section class="main-sample-card">
+				<article>
+					<h2 class="main-sample-card-header">Header</h2>
+					<div class="main-sample-card-close">×</div>
+					<p class="main-sample-card-text">Lorem ipsum dolor sit amet consectetur, adipisicing
+						elit. Esse suscipit voluptatem omnis, pariatur delectus natus ipsum laudantium vel vitae
+						nemo unde! Sint minima quae facere rerum molestiae, animi aspernatur illo Lorem ipsum,
+						dolor
+						sit amet consectetur adipisicing elit. Consequuntur quod culpa ad? Minima necessitatibus
+						id
+						dolore aperiam expedita sed, harum excepturi voluptate quis aspernatur accusamus
+						mollitia
+						alias voluptatibus illum nesciunt.</p>
+				</article>
+			</section>
+			<div class="main-content">
+				<div class="main-content-cards">
+
+					<div class="main-content-card-container">
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Header</h3>
+								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
+									elit.
+									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
+									fuga
+									sequi
+									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
+									ab.
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Header</h3>
+								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
+									elit.
+									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
+									fuga
+									sequi
+									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
+									ab.
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+					</div>
+					<div class="main-content-card-container">
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Header</h3>
+								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
+									elit.
+									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
+									fuga
+									sequi
+									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
+									ab.
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Header</h3>
+								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
+									elit.
+									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
+									fuga
+									sequi
+									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
+									ab.
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+					</div>
+					<div class="main-content-card-container">
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Header</h3>
+								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
+									elit.
+									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
+									fuga
+									sequi
+									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
+									ab.
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+					</div>
+				</div>
+			</div>
 			<aside>
 				<div class="aside">
 					<h3 class="aside-header">Useful links</h3>
