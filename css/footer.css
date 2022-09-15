@@ -6,32 +6,38 @@
     background-color: #33333316;
     color: #918d8d;
 }
+.footer-copyright {
+    min-width: 20%;
+}
 
 .footer-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 20%;
 }
 
 .footer-text span {
-    color: #000;
     font-weight: bold;
 }
 
 .footer-contact {
     display: flex;
+    text-align: right;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    min-width: 20%;
 }
 
 .footer-contact-phone {
+    align-self: flex-end;
     margin-top: 5px;
 }
 
 .footer-contact-icons {
     display: flex;
+    align-self: flex-end;
 }
 
 .footer-contact-icon-container {

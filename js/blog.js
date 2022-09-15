@@ -1,4 +1,3 @@
-const header = document.quer
 const buttonElements = document.querySelectorAll('.main-content-card-button');
 const sampleCardElement = document.querySelector('.main-sample-card');
 const mainContentElement = document.querySelector('.main-content');
