@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
 	<title>Home</title>
+	<script src="js/index.js" defer></script>
 	<style>
 		@import "./css/header.css";
 		@import "./css/footer.css";
@@ -16,6 +17,7 @@
 			padding: 0;
 			box-sizing: border-box;
 			font-family: Arial, Helvetica, sans-serif;
+			scroll-behavior: smooth;
 
 		}
 
@@ -29,6 +31,7 @@
 		a.navigation-menu-content-index {
 			background: #333;
 			color: #fff;
+			pointer-events: none;
 		}
 
 		a.navigation-menu-content-index:hover {
@@ -39,6 +42,81 @@
 
 		main {
 			flex: 1 1 auto;
+		}
+
+		.main-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 100px 0 30px;
+		}
+
+		.main-content-card {
+			max-width: 70%;
+			display: flex;
+			justify-content: center;
+			box-shadow: 0 0 20px #ccc;
+			padding: 20px;
+			border-radius: 10px;
+			margin: 20px;
+		}
+
+		.main-content-card-left,
+		.main-content-card-right {
+			display: flex;
+			flex-direction: column;
+			padding-right: 30px;
+
+		}
+
+		.main-content-card-header {
+			margin-bottom: 15px;
+			font-size: 2em;
+			text-align: center;
+		}
+
+		.main-content-card-text {
+			text-align: justify;
+			flex: 1 1 auto;
+			font-size: 1.25em;
+			margin: 10px 0 30px;
+		}
+
+		.main-content-card-text a {
+			color: #000000a9;
+			font-weight: bold;
+		}
+
+		.main-content-card-text a:hover {
+			color: #000;
+		}
+
+		.main-content-card-ps {
+			font-style: italic;
+			color: #555;
+		}
+
+		.main-content-card-image {
+			width: 300px;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #000;
+		}
+
+		#jumpToFooter {
+			color: #000000a9;
+			font-weight: bold;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+
+		#jumpToFooter:hover {
+			color: #000;
+		}
+
+		li {
+			margin-left: 30px;
+
 		}
 	</style>
 </head>
@@ -58,6 +136,40 @@
 		</header>
 
 		<main>
+			<div class="main-content">
+				<div class="main-content-card">
+					<div class="main-content-card-left">
+						<h2 class="main-content-card-header">Welcome to my page!</h2>
+						<p class="main-content-card-text">My name is Oleksandr Dementiev. I am a student of HZ
+							University of Applied Sciences. This website will introduce me to lecturers and students. It
+							will also show my progress throughout the year. I study <span><a
+									href="https://hz.nl/en/study-programmes/it" target="_blank"
+									rel="noopener">HBO-ICT</a></span> and I will now try to
+							explain why I chose it.
+						</p>
+						<p class="main-content-card-ps"><b>P.S.</b> Feel free to contact me with the links in the
+							<span id="jumpToFooter">footer</span> :)
+						</p>
+					</div>
+					<img class="main-content-card-image" src="resources/welcome.jpg" alt="Welcome">
+				</div>
+
+				<div class="main-content-card">
+					<img class="main-content-card-image" src="resources/why.png" alt="Welcome">
+					<div class="main-content-card-right">
+						<h2 class="main-content-card-header">Why HBO-ICT?</h2>
+						<ul class="main-content-card-text">
+							<li>I have always been interested in technology</li>
+							<li>Computers can really make life easier and better. I felt it
+								myself
+								after learning some programming and becoming able to create small scripts that actually
+								help
+								a lot. Do I have to say what some large scripts can do?.. </li>
+							<li>I want to work in this area, so I need a diploma :)</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 			<aside>
 				<div class="aside">
 					<h3 class="aside-header">Useful links</h3>

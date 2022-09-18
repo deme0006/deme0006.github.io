@@ -1,0 +1,1 @@
+jumpToFooter.onclick = () => window.scrollTo(0, document.body.scrollHeight);

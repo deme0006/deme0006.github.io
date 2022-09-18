@@ -28,6 +28,7 @@
 		a.navigation-menu-content-profile {
 			background: #333;
 			color: #fff;
+			pointer-events: none;
 		}
 
 		a.navigation-menu-content-profile:hover {
@@ -40,6 +41,10 @@
 			flex: 1 1 auto;
 		}
 
+		.main-header {
+			margin: 100px 0 30px;
+		}
+
 		.main-content {
 			display: flex;
 			flex-direction: column;
@@ -47,8 +52,39 @@
 			align-items: center;
 		}
 
-		.main-header {
-			margin: 100px 0 30px;
+		.main-content-card {
+			width: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			/* flex-direction: column; */
+			margin: 20px;
+			padding: 20px;
+			box-shadow: 0 0 20px #ccc;
+			border-radius: 10px;
+		}
+
+		.main-content-card-header {
+			text-align: center;
+			min-width: 30%;
+			margin-bottom: 20px;
+			font-size: 1.5em;
+		}
+
+		.main-content-card-text {
+			padding: 0px 20px;
+			text-align: justify;
+			font-size: 1.25em;
+			align-self: flex-start;
+		}
+
+		li {
+			padding: 10px;
+		}
+
+		.main-content-card-image {
+			width: 200px;
+			border-radius: 5px;
 		}
 	</style>
 </head>
@@ -69,6 +105,34 @@
 		<main>
 			<div class="main-content">
 				<h1 class="main-header">Profile</h1>
+				<div class="main-content-card">
+					<div style="flex: 1 1 auto; width: 100%;">
+						<h2 class="main-content-card-header">General info</h2>
+						<div class="main-content-card-text">
+							<ul>
+								<li><b>Name:</b> Oleksandr Dementiev</li>
+								<li><b>Age:</b> 18</li>
+								<li><b>Nationality:</b> Ukrainian</li>
+							</ul>
+						</div>
+					</div>
+					<img src="resources/me.jpg" alt="Oleksandr Dementiev" class="main-content-card-image">
+				</div>
+				<div class="main-content-card">
+					<div style="flex: 1 1 auto;">
+						<h2 class="main-content-card-header">Hobbies</h2>
+						<div class="main-content-card-text">
+							<ul>
+								<li>Programming</li>
+								<li>Tinkering</li>
+								<li>Watching movies</li>
+								<li>Listening to music</li>
+							</ul>
+						</div>
+					</div>
+					<img src="resources/hobbies.webp" alt="Hobbies" class="main-content-card-image">
+
+				</div>
 			</div>
 			<aside>
 				<div class="aside">
@@ -105,7 +169,6 @@
 		<footer>
 			<div class="footer">
 				<div class="footer-copyright">Copyright ©2022</div>
-
 				<div class="footer-text">Desinged by <span>Oleksandr Dementiev</span></div>
 				<div class="footer-contact">
 					<div class="footer-contact-phone">Tel: (380) 734-990-289</div>
