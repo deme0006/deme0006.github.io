@@ -11,6 +11,21 @@
 		@import "./css/header.css";
 		@import "./css/aside.css";
 
+		::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #ccc;
+			
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: #858585;
+			border-radius: 5px;
+			
+		}
+
 		* {
 			margin: 0;
 			padding: 0;
@@ -78,16 +93,20 @@
 		img {
 			width: 220px;
 			margin-bottom: 30px;
+			filter: grayscale(100%);
 		}
 
 		h2 {
 			color: #005C95;
+			filter: grayscale(100%);
+
 		}
 
 		p {
 			font-size: 1.5em;
 			font-weight: 500;
 			color: #1F9CD8;
+			filter: grayscale(100%);
 		}
 	</style>
 </head>
@@ -253,7 +272,7 @@
 					</tbody>
 				</table>
 				<div
-					style="display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #1F9CD8; margin-bottom: 30px; padding: 10px; border-radius: 5px;">
+					style="display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid #333; margin-bottom: 30px; padding: 10px; border-radius: 5px;">
 					<img src="./resources/hz-logo.svg" alt="HZ logo">
 					<h2>NBSA boundary</h2>
 					<p>45 EC</p>

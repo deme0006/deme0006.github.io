@@ -18,6 +18,22 @@
 			}
 		}
 
+		::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #ccc;
+			border-radius: 5px;
+			
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: #858585;
+			border-radius: 5px;
+			
+		}
+
 		* {
 			margin: 0;
 			padding: 0;
@@ -81,8 +97,9 @@
 		}
 
 		.main-sample-card-header {
+			box-sizing: content-box;
 			text-align: center;
-			margin-bottom: 20px;
+			padding-bottom: 20px;
 		}
 
 		.main-sample-card-close {
@@ -98,12 +115,15 @@
 			transition: 0.5s ease;
 		}
 
+		.main-sample-card-text {
+			height: 200px;
+			overflow-y: scroll;
+		}
+
 		.main-sample-card-close:hover {
 			color: #333;
 			border-color: #333;
 		}
-
-		.main-sample-card-text {}
 
 		.main-content-card-container {
 			width: 100%;
@@ -113,16 +133,25 @@
 		}
 
 		.main-content-card {
-			min-width: 200px;
+			width: 500px;
+			height: 250px;
 			max-width: 30%;
+			max-height: 230px;
 			box-shadow: 0 0 20px #ccc;
 			border-radius: 10px;
 			padding: 5px 20px 10px;
 			margin: 6px;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
 			align-items: center;
+		}
+
+		article {
+			height: 100%;
+			display: flex;
+			justify-content: space-around;
+			align-items: stretch;
+			flex-direction: column;
 		}
 
 		.main-content-card-header {
@@ -135,6 +164,8 @@
 		.main-content-card-text {
 			padding: 10px 10px 15px;
 			text-align: justify;
+			color: #777;
+			/* height: 150px */
 		}
 
 		.main-content-card-button {
@@ -196,14 +227,8 @@
 					<div class="main-content-card-container">
 						<section class="main-content-card">
 							<article>
-								<h3 class="main-content-card-header">Header</h3>
-								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
-									elit.
-									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
-									fuga
-									sequi
-									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
-									ab.
+								<h3 class="main-content-card-header">Study choice</h3>
+								<p class="main-content-card-text">First of all, I really like programming. In school, we only did it for around half a year, but it was at this time that I understood I want to dive into it. But programming is not only about coding. Soft skills are much more important. And since it is quite impossible to build them myself, I chose t... 
 								</p>
 							</article>
 							<button title="Read more" class="main-content-card-button">Read more</button>
@@ -212,15 +237,9 @@
 
 						<section class="main-content-card">
 							<article>
-								<h3 class="main-content-card-header">Header</h3>
-								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
-									elit.
-									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
-									fuga
-									sequi
-									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
-									ab.
-								</p>
+								<h3 class="main-content-card-header">Personal SWOT analysis</h3>
+								<p class="main-content-card-text">SWOT analysis is defined as the review of an individual by assessing strengths, weaknesses, opportunities, and threats of the object of study. By making a SWOT-analysis, I analyze my personal strengths and weaknesses and make an inventory of the 
+									opportunities and threats I exp...</p>
 							</article>
 							<button title="Read more" class="main-content-card-button">Read more</button>
 
@@ -229,46 +248,35 @@
 					<div class="main-content-card-container">
 						<section class="main-content-card">
 							<article>
-								<h3 class="main-content-card-header">Header</h3>
-								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
-									elit.
-									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
-									fuga
-									sequi
-									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
-									ab.
-								</p>
+								<h3 class="main-content-card-header">Programming experience</h3>
+								<p class="main-content-card-text">I finished the secondary school in Ukraine this year. I had been studying around 20 subjects. The subject I tried to study deeper are basically English and Informatics. I have some programming experience. We learned Pascal in the school for like half a year. I liked the conc...</p>
 							</article>
 							<button title="Read more" class="main-content-card-button">Read more</button>
 
 						</section>
 						<section class="main-content-card">
 							<article>
-								<h3 class="main-content-card-header">Header</h3>
-								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
-									elit.
-									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
-									fuga
-									sequi
-									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
-									ab.
+								<h3 class="main-content-card-header">Profession #1</h3>
+								<p class="main-content-card-text">VMedia Inc. is Canada’s leading independent provider of residential telecom and broadcasting services, serving a growing customer base of Canadian households coast to coast. VMedia is also a leader in streaming TV technology, providing a B2B, TV-as-a-Service solution to ...
 								</p>
 							</article>
 							<button title="Read more" class="main-content-card-button">Read more</button>
-
 						</section>
 					</div>
 					<div class="main-content-card-container">
 						<section class="main-content-card">
 							<article>
-								<h3 class="main-content-card-header">Header</h3>
-								<p class="main-content-card-text">Lorem ipsum dolor sit amet consectetur adipisicing
-									elit.
-									Assumenda voluptate consequuntur, aut recusandae at rerum exercitationem nostrum
-									fuga
-									sequi
-									perspiciatis pariatur repudiandae ipsa. Nulla, eveniet! Fugit quasi excepturi sit
-									ab.
+								<h3 class="main-content-card-header">Profession #2</h3>
+								<p class="main-content-card-text">Dnipro-M is a Ukrainian brand of construction and repair tools. Their mission is to help people improve the world around them. The Dnipro-M network has more than 350 branded stores throughout Ukraine...
+								</p>
+							</article>
+							<button title="Read more" class="main-content-card-button">Read more</button>
+
+						</section>
+						<section class="main-content-card">
+							<article>
+								<h3 class="main-content-card-header">Profession #3</h3>
+								<p class="main-content-card-text">Onix-Systems is engaged in the development and maintenance of websites and the creation of applications for Android and iOS, and also constantly learns the most trendy progressive technologies (Apple Watch, Jibo, OculusRift, Arduino, Amazon Echo). The company takes a ...
 								</p>
 							</article>
 							<button title="Read more" class="main-content-card-button">Read more</button>
