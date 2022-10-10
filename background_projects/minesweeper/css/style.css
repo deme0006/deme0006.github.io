@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Kirang Haerang';
+}
+
+body {
+  background: #333;
+}
+
+.page {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 30px;
+}
+
+.page .content {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.page .content .header {
+  margin: 30px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.page .content .header .level-switcher, .page .content .header .level-switcher #current-level span {
+  position: relative;
+  display: inline-block;
+  font-size: 2.5em;
+  color: #ccc;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  padding: 5px 5px 5px 10px;
+  cursor: pointer;
+}
+
+.page .content .header .level-switcher #current-level span {
+  border: none;
+  font-size: 0.5em;
+  margin: 0;
+}
+
+.page .content .header .level-switcher:hover .levels, .page .content .header .level-switcher #current-level span:hover .levels {
+  visibility: visible;
+}
+
+.page .content .header .levels {
+  visibility: hidden;
+  cursor: pointer;
+  position: absolute;
+  padding: 10px;
+  font-size: 0.8em;
+}
+
+.page .content .header .levels .level {
+  font-size: 1em;
+  color: #ccc;
+  border: 3px solid #bfbfbf;
+  text-shadow: 0 0 5px #000;
+  margin: 1px;
+  padding: 5px;
+  border-radius: 8px;
+  background: #333;
+  transition: background 0.4s ease-out;
+  text-align: center;
+}
+
+.page .content .header .levels .level:hover {
+  background: #555;
+}
+
+.page .content .header .levels .level.level-red {
+  border: 3px solid red;
+}
+
+.page .content .header .levels .level.level-red:hover {
+  background: #612323;
+}
+
+.page .content .header .levels .level.level-green {
+  border: 3px solid #2cc740;
+}
+
+.page .content .header .levels .level.level-green:hover {
+  background: #235b28;
+}
+
+.page .content .header .flag-counter, .page .content .header #restart {
+  color: #ccc;
+  font-size: 2.5em;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+
+.page .content .header #restart {
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  transition: 0.33s ease-out;
+}
+
+.page .content .header #restart:hover {
+  background: rgba(199, 204, 202, 0.2);
+}
+
+.page .content .header #restart.button-restart-red:hover {
+  background: rgba(255, 0, 0, 0.15);
+}
+
+.page .content .header #restart.button-restart-green:hover {
+  background: rgba(0, 255, 87, 0.12);
+}
+
+.page .content .field {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.page .content .field .cells {
+  display: grid;
+}
+
+.page .content .field .cells button {
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  border-radius: 5px;
+  background: #ccc;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+  margin: 2px;
+}
+
+.page .content .field .cells .cell:hover {
+  background: #9d9898;
+}
+
+/*# sourceMappingURL=style.css.map */

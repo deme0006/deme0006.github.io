@@ -1,0 +1,1778 @@
+
+<!DOCTYPE html>
+<html lang="en" id="html">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+	<title>Todoist</title>
+	<style type="text/css">
+
+		::-webkit-scrollbar {
+			display: none;
+		}
+
+		* {
+			font-family: 'Gloria Hallelujah', Arial;
+			outline: none;
+		}
+
+		button {
+			user-select: none;
+		}
+
+		html {
+			background-color: rgba(50,205,50, 0.2);
+			overflow-x: hidden;
+		}
+
+		.page {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.header__header {
+			flex: 1 1 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#header__header {
+			color: rgba(50,235,50, 0.83);
+			font-size: 43px;
+			margin: 7px 0 20px 0;
+			user-select: none;
+		}
+
+		.header__content {
+			flex: 1 1 auto;
+			display: flex;
+			justify-content: center;
+			margin-bottom: 3px
+		}
+
+		.textbox {
+			display: flex;
+			flex: 1 1 auto;
+			justify-content: center;
+		}
+
+		#textbox {
+			width: 100%;
+			padding-left: 5px;
+			color: green;
+			font-size: 25px;
+			background: transparent;
+			border: 2.7px dashed lime;
+			border-radius: 10px;
+			font-family: 'Hachi Maru Pop', Courier New;
+			transition: 1s ease-in-out;
+			transition-property: transform
+		}
+
+		#textbox::placeholder {
+			user-select: none;
+		}
+
+		.button__add {
+			display: flex;
+			justify-content: center;	
+			flex: 0 0 90px;
+			margin-left: 5px;
+		}
+
+		#button__add {
+			width: 100%;
+			font-family: 'Unica One', sans-serif;
+			font-size: 25px;
+			background: rgba(50,205,50, 0.63);
+			color: #fff;
+			text-shadow: 1px 1px 3px #000;
+			border: none;
+			border-radius: 13px;
+			transition: 1s ease-in-out;
+			transition-property: transform
+		}
+
+		.main__content {
+			flex: 1 1 auto;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.main__buttons {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+		}
+
+		.button__clear {
+			display: flex;
+			flex: 0 0 120px;
+			justify-content: flex-end;
+		}
+
+		#button__clear {
+			width: 100%;
+			align-self: flex-end;
+			font-family: 'Unica One', sans-serif;
+			font-size: 20px;
+			background: rgba(50,205,50, 0.63);
+			color: #fff;
+			text-shadow: 1px 1px 4px #000;
+			border: none;
+			border-radius: 15px;
+			margin-top: 1px;
+			transition: 1s ease-in-out;
+			transition-property: transform
+		}
+
+		.button__theme {
+			display: flex;
+			flex: 1 1 120px;
+			justify-content: flex-start;
+		}
+
+		#button__theme {
+			align-self: flex-start;
+			align-self: flex-end;
+			font-family: 'Unica One', sans-serif;
+			font-size: 20px;
+			background: rgba(50,205,50, 0.63);
+			color: #fff;
+			text-shadow: 1px 1px 4px #000;;
+			border: none;
+			border-radius: 15px;
+			transition: 1s ease-in-out;
+			transition-property: transform
+		}
+
+		#lists {
+			flex: 1 1 auto;
+			display: flex;
+			flex-direction: column;
+			margin-top: 4px;
+			gap: 5px;
+		}
+
+		#lists div {
+			transition: 0.6s ease-in-out;
+			/*transition-property: transform, opacity*/
+		}
+
+		.list {
+			display: flex;
+			padding-left: 6px;
+			flex: 1 1 auto;
+			border: 2px groove lime;
+			border-radius: 10px;
+			list-style: none;
+			align-items: center;
+			justify-content: space-between;
+			transition: 3s ease;
+		}
+
+		.list input {
+			width: 100%;
+			color: #1AC31A;
+			border: 5px double transparent;
+			border-left: none;
+			font-size: 23px;
+			background: transparent;
+			font-family: 'Hachi Maru Pop', Courier New;
+		}
+
+		p {
+			flex: 0 1 67em;
+			font-style: bold;
+			color: #1AC31A;
+			font-size: 23px;
+			font-family: 'Hachi Maru Pop', Courier New;
+		}
+
+		button {
+			cursor: pointer;
+		}
+
+		.buttons {
+			flex: 0 0 160px;
+			display: flex;
+			text-align: right;
+			justify-content: flex-end;
+			align-items: center;
+			padding: 0 1px 0 9px;
+		}
+
+		.button__edit, .button__remove, .button__done {
+			flex: 0 0 39px;
+			margin: 2px;
+			font-size: 18px;
+			font-family: serif;
+			background: transparent; 
+			border-radius: 10px; 
+			border-left: none;
+			border-right: none;
+			color: green;
+			transition: 0.5s ease-in-out;
+			transition-property: box-shadow, border
+		}
+
+		.button__remove {
+			margin-right: 3px;
+		}
+
+		.up__down {
+			display: flex;
+			flex: 0 0 33px;
+			flex-direction: column;
+			margin: 3px 1px 3px 0;
+		}
+
+		.up__down button {
+			padding-bottom: 5px;
+			margin: 2px 2px 2px 3px;
+			background: transparent;
+			border-radius: 10px;
+			border-top: none;
+			border-bottom: none;
+			font-size: 18px;
+			color: green;
+			transition: 0.5s ease-in-out;
+			transition-property: box-shadow, border
+		}
+
+
+
+
+
+
+		@media screen and (max-width: 900px) {
+			#textbox {font-size: 20px;}
+			#button__add {font-size: 21px}
+			#button__clear {font-size: 18px}
+			#button__theme {font-size: 18px}
+			.list input {font-size: 18px}
+			p {font-size: 18px}
+		}
+
+		@media screen and (max-width: 500px) {
+			.buttons {flex: 0 0 130px}
+			.button__edit, .button__remove, .button__done, .up__down {
+				flex: 0 0 30px;
+			}
+		}
+
+		@media screen and (max-width: 400px) {
+			.button__add {flex: 0 0 60px}
+			.button__clear {flex: 0 0 120px}
+			.button__theme {flex: 1 0 auto}
+			#textbox {font-size: 17px;}
+			#button__add {font-size: 19px;}
+			#button__clear {font-size: 18px}
+			#button__theme {font-size: 18px}
+			.list input {font-size: 15px}
+			p {font-size: 15px}
+
+		}
+
+
+
+	</style>
+</head>
+<body>
+	
+	<div class="page">
+		<header>
+			<div class="header__header">
+				<h1 id="header__header">T</h1>
+			</div>
+
+			<div class="header__content">
+				<div class="textbox">
+					<input type="text" id="textbox" placeholder="Type here...">
+				</div>
+				
+				<div class="button__add">
+					<button id="button__add">ADD</button>
+				</div>
+			</div>
+		</header>
+
+		<main>
+
+			<div class="main__content">
+				<div class="main__buttons">
+					<div class="button__theme">
+						<button id="button__theme">toggle theme</button>
+					</div>
+
+					<div class="button__clear">
+						<button id="button__clear">clear all</button>
+					</div>
+				</div>
+
+				<div id="lists"></div>
+			</div>
+
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		const html = document.getElementById('html');
+		const header = document.getElementById('header__header');
+		const textbox = document.getElementById('textbox');
+		const lists = document.getElementById('lists');
+		const buttonAdd = document.getElementById('button__add');
+		const buttonClear = document.getElementById('button__clear');
+		const buttonDone = document.getElementsByClassName('button__done');
+		const buttonEdit = document.getElementsByClassName('button__edit');
+		const buttonRemove = document.getElementsByClassName('button__remove');
+		const buttonUp = document.getElementsByClassName('button__up');
+		const buttonDown = document.getElementsByClassName('button__down');
+		const buttonTheme = document.getElementById('button__theme');
+		const list = document.getElementsByClassName('list');
+		const p = document.getElementsByTagName('p');
+		let count = localStorage.getItem("Todoist_theme");
+		let userY, currentY = 0;
+		let text;
+		let color;
+		let editing = ctrl = false;
+
+
+
+
+
+
+
+		// Loading data from local storage 
+
+		lists.innerHTML = localStorage.getItem('Todoist_data');
+		textbox.style.transform = 'scale(0.1)';
+		buttonAdd.style.transform = 'scale(0.1)';
+		buttonClear.style.transform = 'scale(0.1)';
+		buttonTheme.style.transform = 'scale(0.1)'; 
+
+		for (var i = 0; i < lists.childElementCount; i+=2) {
+			lists.childNodes[i].style.transform = 'translateX(100%)'
+		}
+
+		for (var i = 1; i < lists.childElementCount; i+=2) {
+			lists.childNodes[i].style.transform = 'translateX(-100%)'
+		}
+
+
+
+
+
+		if (count == null) {
+			textbox.style.color = '#1AC31A';
+			
+			for (var i = 0; i < buttonDone.length; i++) {
+				if (buttonDone[i].style.color != 'grey') {
+					buttonDone[i].style.color = 'green';
+					buttonDone[i].style.borderColor = 'lime'
+				}
+			}
+			for (var i = 0; i < buttonEdit.length; i++) {
+				if (buttonEdit[i].style.color != 'grey') {
+					buttonEdit[i].style.color = 'green';
+					buttonEdit[i].style.borderColor = 'lime'
+				}
+			}
+			for (var i = 0; i < buttonRemove.length; i++) {
+				if (buttonRemove[i].style.color != 'grey') {
+					buttonRemove[i].style.color = 'green';
+					buttonRemove[i].style.borderColor = 'lime'
+				}
+			}
+			for (var i = 0; i < buttonUp.length; i++) {
+				if (buttonUp[i].style.color != 'grey') {
+					buttonUp[i].style.color = 'green';
+					buttonUp[i].style.borderColor = 'lime'
+				}
+			}
+			for (var i = 0; i < buttonDown.length; i++) {
+				if (buttonDown[i].style.color != 'grey') {
+					buttonDown[i].style.color = 'green';
+					buttonDown[i].style.borderColor = 'lime'
+				}
+			}
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].style.borderColor != 'grey') {
+					list[i].style.borderColor = ''
+				}
+			}
+			for (var i = 0; i < p.length; i++) {
+				if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') {
+					p[i].style.color = '#1AC31A';
+				}
+			}
+		}
+
+
+
+
+		// Start animations
+
+		window.onload = function() {
+
+			setTimeout(function() {header.innerHTML = "T     T"}, 50);
+			setTimeout(function() {header.innerHTML = "TO    T"}, 200);
+			setTimeout(function() {header.innerHTML = 'TO   ST'}, 350);
+			setTimeout(function() {header.innerHTML = "TOD  ST"}, 500);
+			setTimeout(function() {header.innerHTML = "TOD IST"}, 650);
+			setTimeout(function() {header.innerHTML = "TODOIST"}, 800);
+
+			textbox.style.transform = 'scale(1)';
+			buttonAdd.style.transform = 'scale(1)';
+			buttonClear.style.transform = 'scale(1)';
+			buttonTheme.style.transform = 'scale(1)';
+
+			for (var i = 0; i < lists.childElementCount; i++) {
+				lists.childNodes[i].style.transform = 'translateX(0)'
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Enter = buttonAdd's click
+
+		textbox.addEventListener('keydown', function() {
+			if (event.keyCode == '13') {
+				buttonAdd.click()
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Add textbox's value to list on buttonAdd's click
+
+		buttonAdd.addEventListener('click', function() {
+
+			if (textbox.value.trim() != '') {
+
+				lists.appendChild(document.createElement('div')); 
+				lists.lastChild.innerHTML += `<div class="list"><p></p><div class="buttons"><button class="button__done" onclick="ButtonDone(this)">✔</button><button class="button__edit" onclick="ButtonEdit(this)">🖋</button><button class="button__remove" onclick="ButtonRemove(this)">🗑</button><div class="up__down"><button class="button__up" onclick="ButtonUp(this)">↑</button><button class="button__down" onclick="ButtonDown(this)">↓</button></div></div></div>`;
+				lists.lastChild.firstChild.firstChild.textContent = textbox.value;
+				lists.lastChild.style = 'transition: 2s ease; transform: translateY(-100%); opacity: 0';
+
+				setTimeout(function() {
+					lists.lastChild.style = ''; 
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 50);
+
+
+
+
+
+
+
+				// Color control
+
+				if (localStorage.getItem("Todoist_theme") == null || localStorage.getItem("Todoist_theme") == 0) {
+
+					for (var i = 0; i < buttonDone.length; i++) {
+						if (buttonDone[i].style.color != 'grey') {
+							buttonDone[i].style.color = 'green';
+							buttonDone[i].style.borderColor = 'lime';
+						}
+					}
+					for (var i = 0; i < buttonEdit.length; i++) {
+						if (buttonEdit[i].style.color != 'grey') {
+							buttonEdit[i].style.color = 'green';
+							buttonEdit[i].style.borderColor = 'lime'
+						}
+					}
+					for (var i = 0; i < buttonRemove.length; i++) {
+						if (buttonRemove[i].style.color != 'grey') {
+							buttonRemove[i].style.color = 'green';
+							buttonRemove[i].style.borderColor = 'lime'
+						}
+					}
+					for (var i = 0; i < buttonUp.length; i++) {
+						if (buttonUp[i].style.color != 'grey') {
+							buttonUp[i].style.color = 'green';
+							buttonUp[i].style.borderColor = 'lime';
+						}
+					}
+					for (var i = 0; i < buttonDown.length; i++) {
+						if (buttonDown[i].style.color != 'grey') {
+							buttonDown[i].style.color = 'green';
+							buttonDown[i].style.borderColor = 'lime'
+						}
+					}
+					for (var i = 0; i < list.length; i++) {
+						if (list[i].style.borderColor != 'grey') {
+							list[i].style.borderColor = 'lime'
+						}
+					}
+					for (var i = 0; i < p.length; i++) {
+						if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+							p[i].style.color = 'rgba(50,205,50, 0.9)';
+						}					
+					}
+					localStorage.setItem("Todoist_data", lists.innerHTML);
+
+				}
+				else if (localStorage.getItem("Todoist_theme") == 1) {
+
+					for (var i = 0; i < buttonDone.length; i++) {
+						if (buttonDone[i].style.color != 'grey') {
+							buttonDone[i].style.color = 'red';
+							buttonDone[i].style.borderColor = 'red';
+						}
+					}
+					for (var i = 0; i < buttonEdit.length; i++) {
+						if (buttonEdit[i].style.color != 'grey') {
+							buttonEdit[i].style.color = 'red';
+							buttonEdit[i].style.borderColor = 'red'
+						}
+					}
+					for (var i = 0; i < buttonRemove.length; i++) {
+						if (buttonRemove[i].style.color != 'grey') {
+							buttonRemove[i].style.color = 'red';
+							buttonRemove[i].style.borderColor = 'red'
+						}
+					}
+					for (var i = 0; i < buttonUp.length; i++) {
+						if (buttonUp[i].style.color != 'grey') {
+							buttonUp[i].style.color = 'red';
+							buttonUp[i].style.borderColor = 'red'
+						}
+					}
+					for (var i = 0; i < buttonDown.length; i++) {
+						if (buttonDown[i].style.color != 'grey') {
+							buttonDown[i].style.color = 'red';
+							buttonDown[i].style.borderColor = 'red'
+						}
+					}
+					for (var i = 0; i < list.length; i++) {
+						if (list[i].style.borderColor != 'grey') {
+							list[i].style.borderColor = 'red'
+						}
+					}
+					for (var i = 0; i < p.length; i++) {
+						if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+							p[i].style.color = 'rgba(255, 0, 0, 0.8)';
+						}
+					}
+					localStorage.setItem("Todoist_data", lists.innerHTML);
+				}
+				else if (localStorage.getItem("Todoist_theme") == 2) {
+
+						for (var i = 0; i < buttonDone.length; i++) {
+							if (buttonDone[i].style.color != 'grey') {
+								buttonDone[i].style.color = 'blue';
+								buttonDone[i].style.borderColor = 'blue';
+							}
+						}
+						for (var i = 0; i < buttonEdit.length; i++) {
+							if (buttonEdit[i].style.color != 'grey') {
+								buttonEdit[i].style.color = 'blue';
+								buttonEdit[i].style.borderColor = 'blue'
+							}
+						}
+						for (var i = 0; i < buttonRemove.length; i++) {
+							if (buttonRemove[i].style.color != 'grey') {
+								buttonRemove[i].style.color = 'blue';
+								buttonRemove[i].style.borderColor = 'blue'
+							}
+						}
+						for (var i = 0; i < buttonUp.length; i++) {
+							if (buttonUp[i].style.color != 'grey') {
+								buttonUp[i].style.color = 'blue';
+								buttonUp[i].style.borderColor = 'blue'
+							}
+						}
+						for (var i = 0; i < buttonDown.length; i++) {
+							if (buttonDown[i].style.color != 'grey') {
+								buttonDown[i].style.color = 'blue';
+								buttonDown[i].style.borderColor = 'blue'
+							}
+						}
+						for (var i = 0; i < list.length; i++) {
+							if (list[i].style.borderColor != 'grey') {
+								list[i].style.borderColor = 'blue'
+							}
+						}
+						for (var i = 0; i < p.length; i++) {
+							if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+								p[i].style.color = 'rgba(0, 0, 255, 0.7)';
+							}
+						}
+						localStorage.setItem("Todoist_data", lists.innerHTML);
+				}
+				else if (localStorage.getItem("Todoist_theme") == 3) {
+
+						for (var i = 0; i < buttonDone.length; i++) {
+							if (buttonDone[i].style.color != 'grey') {
+								buttonDone[i].style.color = 'orange';
+								buttonDone[i].style.borderColor = 'orange';
+							}
+						}
+						for (var i = 0; i < buttonEdit.length; i++) {
+							if (buttonEdit[i].style.color != 'grey') {
+								buttonEdit[i].style.color = 'orange';
+								buttonEdit[i].style.borderColor = 'orange'
+							}
+						}
+						for (var i = 0; i < buttonRemove.length; i++) {
+							if (buttonRemove[i].style.color != 'grey') {
+								buttonRemove[i].style.color = 'orange';
+								buttonRemove[i].style.borderColor = 'orange'
+							}
+						}
+						for (var i = 0; i < buttonUp.length; i++) {
+							if (buttonUp[i].style.color != 'grey') {
+								buttonUp[i].style.color = 'orange';
+								buttonUp[i].style.borderColor = 'orange'
+							}
+						}
+						for (var i = 0; i < buttonDown.length; i++) {
+							if (buttonDown[i].style.color != 'grey') {
+								buttonDown[i].style.color = 'orange';
+								buttonDown[i].style.borderColor = 'orange'
+							}
+						}
+						for (var i = 0; i < list.length; i++) {
+							if (list[i].style.borderColor != 'grey') {
+								list[i].style.borderColor = 'orange'
+							}
+						}
+						for (var i = 0; i < p.length; i++) {
+							if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+								p[i].style.color = 'orange';
+							}
+						}
+						localStorage.setItem("Todoist_data", lists.innerHTML);
+				}
+				else if (localStorage.getItem("Todoist_theme") == 4) {
+
+						for (var i = 0; i < buttonDone.length; i++) {
+							if (buttonDone[i].style.color != 'grey') {
+								buttonDone[i].style.color = '#fff';
+								buttonDone[i].style.borderColor = '#fff';
+							}
+						}
+						for (var i = 0; i < buttonEdit.length; i++) {
+							if (buttonEdit[i].style.color != 'grey') {
+								buttonEdit[i].style.color = '#fff';
+								buttonEdit[i].style.borderColor = '#fff'
+							}
+						}
+						for (var i = 0; i < buttonRemove.length; i++) {
+							if (buttonRemove[i].style.color != 'grey') {
+								buttonRemove[i].style.color = '#fff';
+								buttonRemove[i].style.borderColor = '#fff'
+							}
+						}
+						for (var i = 0; i < buttonUp.length; i++) {
+							if (buttonUp[i].style.color != 'grey') {
+								buttonUp[i].style.color = '#fff';
+								buttonUp[i].style.borderColor = '#fff'
+							}
+						}
+						for (var i = 0; i < buttonDown.length; i++) {
+							if (buttonDown[i].style.color != 'grey') {
+								buttonDown[i].style.color = '#fff';
+								buttonDown[i].style.borderColor = '#fff'
+							}
+						}
+						for (var i = 0; i < list.length; i++) {
+							if (list[i].style.borderColor != 'grey') {
+								list[i].style.borderColor = '#fff'
+							}
+						}
+						for (var i = 0; i < p.length; i++) {
+							if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+								p[i].style.color = '#fff';
+							}
+						}
+						localStorage.setItem("Todoist_data", lists.innerHTML);
+				}
+				else {
+
+						for (var i = 0; i < buttonDone.length; i++) {
+							if (buttonDone[i].style.color != 'grey') {
+								buttonDone[i].style.color = '#000';
+								buttonDone[i].style.borderColor = '#000';
+							}
+						}
+						for (var i = 0; i < buttonEdit.length; i++) {
+							if (buttonEdit[i].style.color != 'grey') {
+								buttonEdit[i].style.color = '#000';
+								buttonEdit[i].style.borderColor = '#000'
+							}
+						}
+						for (var i = 0; i < buttonRemove.length; i++) {
+							if (buttonRemove[i].style.color != 'grey') {
+								buttonRemove[i].style.color = '#000';
+								buttonRemove[i].style.borderColor = '#000'
+							}
+						}
+						for (var i = 0; i < buttonUp.length; i++) {
+							if (buttonUp[i].style.color != 'grey') {
+								buttonUp[i].style.color = '#000';
+								buttonUp[i].style.borderColor = '#000'
+							}
+						}
+						for (var i = 0; i < buttonDown.length; i++) {
+							if (buttonDown[i].style.color != 'grey') {
+								buttonDown[i].style.color = '#000';
+								buttonDown[i].style.borderColor = '#000'
+							}
+						}
+						for (var i = 0; i < list.length; i++) {
+							if (list[i].style.borderColor != 'grey') {
+								list[i].style.borderColor = '#000'
+							}
+						}
+						for (var i = 0; i < p.length; i++) {
+							if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+								p[i].style.color = '#000';
+							}
+						}
+						localStorage.setItem("Todoist_data", lists.innerHTML);
+				}
+
+				window.scrollTo(0, 99999);
+			}
+
+			textbox.value = null;
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Clear list on buttonClear's click
+
+		buttonClear.addEventListener('click', function() {
+
+			if (confirm('Are you sure?')){
+
+				textbox.value = null;
+
+				for (var i = 0; i < lists.childElementCount; i++) {
+					lists.childNodes[i].style = 'transition: 0.8s ease; transform: rotateY(180deg)'
+				}
+
+
+				setTimeout(function() {
+					for (var i = 0; i < lists.childElementCount; i++) {
+						lists.childNodes[i].style = 'transition: 0.4s ease; transform: rotateY(90deg)'
+					}
+				}, 700);
+
+
+				setTimeout(function() {
+					lists.innerHTML = '';
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 1100);
+
+				textbox.focus()
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Switch theme on buttonTheme's click
+
+		buttonTheme.addEventListener("click", function() {
+
+			if (count == localStorage.getItem("Todoist_theme")) {
+				let all = document.querySelectorAll('*');
+
+				for (var i = 0; i < all.length; i++) {
+					all[i].style.transition = '0.6s ease'
+				};
+
+				setTimeout(function() {
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.transition = ''
+					};
+
+				}, 600)
+			}
+
+			if (count == null || count == 0) {
+				count ++;
+
+				html.style.backgroundColor = 'rgba(255, 0, 0, 0.14)';
+				header.style.color = 'rgba(255, 0, 0, 0.75)';
+				textbox.style.color = 'red';
+				textbox.style.borderColor = 'red';
+				buttonAdd.style.background = 'rgba(255, 0, 0, 0.7)';
+				buttonClear.style.background = 'rgba(255, 0, 0, 0.7)';
+				buttonTheme.style.background = 'rgba(255, 0, 0, 0.7)';
+
+
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = 'red';
+						buttonDone[i].style.borderColor = 'red';
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = 'red';
+						buttonEdit[i].style.borderColor = 'red'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = 'red';
+						buttonRemove[i].style.borderColor = 'red'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = 'red';
+						buttonUp[i].style.borderColor = 'red'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = 'red';
+						buttonDown[i].style.borderColor = 'red'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = 'red'
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+						p[i].style.color = 'rgba(255, 0, 0, 0.75)';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+			else if (count == 1) {
+				count ++;
+
+				html.style.backgroundColor = 'rgba(0, 0, 255, 0.15)';
+				header.style.color = 'rgba(0, 0, 255, 0.7)';
+				textbox.style.color = 'blue';
+				textbox.style.borderColor = 'blue';
+				buttonAdd.style.background = 'rgba(0, 0, 255, 0.6)';
+				buttonClear.style.background = 'rgba(0, 0, 255, 0.6)';
+				buttonTheme.style.background = 'rgba(0, 0, 255, 0.6)';
+
+
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = 'blue';
+						buttonDone[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = 'blue';
+						buttonEdit[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = 'blue';
+						buttonRemove[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = 'blue';
+						buttonUp[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = 'blue';
+						buttonDown[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = 'blue'
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+						p[i].style.color = 'rgba(0, 0, 255, 0.7)';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+			else if (count == 2) {
+				count ++;
+
+				html.style.backgroundColor = 'rgba(255, 255, 0, 0.1)';
+				header.style.color = 'orange';
+				textbox.style.color = 'orange';
+				textbox.style.borderColor = 'orange';
+				buttonAdd.style.background = 'rgba(255, 165, 0, 0.6)';
+				buttonClear.style.background = 'rgba(255, 165, 0, 0.6)';
+				buttonTheme.style.background = 'rgba(255, 165, 0, 0.6)';
+
+
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = 'orange';
+						buttonDone[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = 'orange';
+						buttonEdit[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = 'orange';
+						buttonRemove[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = 'orange';
+						buttonUp[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = 'orange';
+						buttonDown[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = 'orange'
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+						p[i].style.color = 'orange';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+			else if (count == 3) {
+				count ++;
+
+				html.style.backgroundColor = '#232323';
+				header.style.color = '#fff';
+				textbox.style.color = '#fff';
+				textbox.style.borderColor = '#fff';
+				buttonAdd.style.background = 'lightgrey';
+				buttonClear.style.background = 'lightgrey';
+				buttonTheme.style.background = 'lightgrey';
+
+				for (var i = 0; i < lists.childElementCount; i++) {
+					if (lists.childNodes[i].firstChild.style.background == 'rgba(0, 0, 0, 0.3)') {
+						lists.childNodes[i].firstChild.style.background = 'rgba(255, 255, 255, 0.25)'
+					}		
+				}
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = '#fff';
+						buttonDone[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = '#fff';
+						buttonEdit[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = '#fff';
+						buttonRemove[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = '#fff';
+						buttonUp[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = '#fff';
+						buttonDown[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = '#fff'
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+						p[i].style.color = '#fff';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+			else if (count == 4) {
+				count ++;
+
+				html.style.backgroundColor = '#fff';
+				header.style.color = '#000';
+				textbox.style.color = '#000';
+				textbox.style.borderColor = '#000';
+				buttonAdd.style.background = 'grey';
+				buttonClear.style.background = 'grey';
+				buttonTheme.style.background = 'grey';
+
+				for (var i = 0; i < lists.childElementCount; i++) {
+					if (lists.childNodes[i].firstChild.style.background == 'rgba(255, 255, 255, 0.25)') {
+						lists.childNodes[i].firstChild.style.background = 'rgba(0, 0, 0, 0.3)'
+					}		
+				}
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = '#000';
+						buttonDone[i].style.borderColor = '#000';
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = '#000';
+						buttonEdit[i].style.borderColor = '#000'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = '#000';
+						buttonRemove[i].style.borderColor = '#000'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = '#000';
+						buttonUp[i].style.borderColor = '#000'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = '#000';
+						buttonDown[i].style.borderColor = '#000'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = '#000'
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') { 
+						p[i].style.color = '#000';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+			else if (count == 5) {
+				count = 0;
+
+				html.style.backgroundColor = '';
+				header.style.color = '';
+				textbox.style.color = '#1AC31A';
+				textbox.style.borderColor = '';
+				buttonAdd.style.background = '';
+				buttonClear.style.background = '';
+				buttonTheme.style.background = '';
+
+
+				for (var i = 0; i < buttonDone.length; i++) {
+					if (buttonDone[i].style.color != 'grey') {
+						buttonDone[i].style.color = 'green';
+						buttonDone[i].style.borderColor = 'lime'
+					}
+				}
+				for (var i = 0; i < buttonEdit.length; i++) {
+					if (buttonEdit[i].style.color != 'grey') {
+						buttonEdit[i].style.color = 'green';
+						buttonEdit[i].style.borderColor = 'lime'
+					}
+				}
+				for (var i = 0; i < buttonRemove.length; i++) {
+					if (buttonRemove[i].style.color != 'grey') {
+						buttonRemove[i].style.color = 'green';
+						buttonRemove[i].style.borderColor = 'lime'
+					}
+				}
+				for (var i = 0; i < buttonUp.length; i++) {
+					if (buttonUp[i].style.color != 'grey') {
+						buttonUp[i].style.color = 'green';
+						buttonUp[i].style.borderColor = 'lime'
+					}
+				}
+				for (var i = 0; i < buttonDown.length; i++) {
+					if (buttonDown[i].style.color != 'grey') {
+						buttonDown[i].style.color = 'green';
+						buttonDown[i].style.borderColor = 'lime'
+					}
+				}
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].style.borderColor != 'grey') {
+						list[i].style.borderColor = ''
+					}
+				}
+				for (var i = 0; i < p.length; i++) {
+					if (p[i].style.color != 'rgba(0, 0, 0, 0.4)') {
+						p[i].style.color = '#1AC31A';
+					}
+				}
+				localStorage.setItem("Todoist_theme", count);
+				localStorage.setItem("Todoist_data", lists.innerHTML);
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Make item done on buttonDone's click 
+
+		function ButtonDone(This) {
+			if (This.parentNode.parentNode.firstChild.style.textDecoration == 'line-through') {
+				This.parentNode.parentNode.firstChild.style.textDecoration = 'none'; 
+
+				if (header.style.color != '') {
+					This.parentNode.parentNode.firstChild.style.color = header.style.color; 
+					This.parentNode.parentNode.style.border = `2px groove ${header.style.color}`; 
+					This.style.color = header.style.color; 
+					This.style.borderColor = header.style.color;
+					This.parentNode.childNodes[1].style.color = header.style.color; 
+					This.parentNode.childNodes[1].style.borderColor = header.style.color; 
+					This.parentNode.childNodes[2].style.color = header.style.color; 
+					This.parentNode.childNodes[2].style.borderColor = header.style.color; 
+					This.parentNode.childNodes[3].lastChild.style.color = header.style.color; 
+					This.parentNode.childNodes[3].lastChild.style.borderColor = header.style.color; 
+					This.parentNode.childNodes[3].firstChild.style.color = header.style.color;
+					This.parentNode.childNodes[3].firstChild.style.borderColor = header.style.color;
+				} else {
+					This.parentNode.parentNode.firstChild.style.color = ''; 
+					This.parentNode.parentNode.style.border = ''; 
+					This.style.color = ''; 
+					This.style.borderColor = 'lime'; 
+					This.parentNode.childNodes[1].style.color = ''; 
+					This.parentNode.childNodes[1].style.borderColor = 'lime'; 
+					This.parentNode.childNodes[2].style.color = ''; 
+					This.parentNode.childNodes[2].style.borderColor = 'lime'; 
+					This.parentNode.childNodes[3].firstChild.style.color = '';
+					This.parentNode.childNodes[3].firstChild.style.borderColor = 'lime';
+					This.parentNode.childNodes[3].lastChild.style.color = ''; 
+					This.parentNode.childNodes[3].lastChild.style.borderColor = 'lime'; 
+				} 
+
+				This.parentNode.parentNode.style.background = ''; 
+				This.innerHTML = '✔'; 
+				This.style.fontSize = ''
+			} else {
+				This.parentNode.parentNode.firstChild.style = 'text-decoration: line-through; color: rgba(0, 0, 0, 0.4)'; 
+				if (header.style.color != 'rgb(255, 255, 255)') {
+					This.parentNode.parentNode.style = `border: 2px solid grey; background: rgba(0, 0, 0, 0.3)`
+				} else {
+					This.parentNode.parentNode.style = `border: 2px solid grey; background: rgba(255,255,255,0.25)`
+				}
+
+				This.innerHTML = '⨯'; 
+				This.style.fontSize = '20px'; 
+				This.style.color = 'grey'; 
+				This.style.borderColor = 'grey'; 
+				This.parentNode.childNodes[1].style.color = 'grey'; 
+				This.parentNode.childNodes[1].style.borderColor = 'grey'; 
+				This.parentNode.childNodes[2].style.color = 'grey';
+				This.parentNode.childNodes[2].style.borderColor = 'grey';
+				This.parentNode.childNodes[3].firstChild.style.color = 'grey'; 
+				This.parentNode.childNodes[3].firstChild.style.borderColor = 'grey'; 
+				This.parentNode.childNodes[3].lastChild.style.color = 'grey'; 
+				This.parentNode.childNodes[3].lastChild.style.borderColor = 'grey'; 
+			}
+
+				localStorage.setItem('Todoist_data', lists.innerHTML);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Edit item on buttonEdit's click
+
+		function ButtonEdit(This) {
+			This.parentNode.firstChild.innerHTML = '✔'; 
+			This.parentNode.firstChild.style.fontSize = ''; 
+
+
+			if (This.parentNode.parentNode.childNodes[1].innerHTML != '✔') {
+				editing = true;
+
+				if (header.style.color != '') {
+					for (let i=0; i < lists.childElementCount; i++) {
+						if (lists.childNodes[i].firstChild !== This.parentNode.parentNode) {
+							lists.childNodes[i].firstChild.firstChild.style.textShadow = `0 0 9px ${lists.childNodes[i].firstChild.firstChild.style.color}`;
+							lists.childNodes[i].firstChild.firstChild.style.color = 'transparent';
+
+							for (let j=0; j < 3; j++) {
+								lists.childNodes[i].firstChild.style.borderColor = 'transparent';
+								lists.childNodes[i].firstChild.lastChild.childNodes[j].style.textShadow = `0 0 9px ${lists.childNodes[i].firstChild.lastChild.childNodes[j].style.color}`;
+								lists.childNodes[i].firstChild.lastChild.childNodes[j].style.borderColor = 'transparent';
+								lists.childNodes[i].firstChild.lastChild.childNodes[j].style.color = 'transparent';
+							}
+
+							lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.textShadow = `0 0 9px ${lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.color}`;
+							lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.borderColor = 'transparent';
+							lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.color = 'transparent';
+							lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.textShadow = `0 0 9px ${lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.color}`;
+							lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.borderColor = 'transparent';			
+							lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.color = 'transparent';
+					}
+				}
+			} else {
+				for (let i=0; i < lists.childElementCount; i++) {
+					if (lists.childNodes[i].firstChild !== This.parentNode.parentNode) {
+						lists.childNodes[i].firstChild.firstChild.style.textShadow = `0 0 9px ${lists.childNodes[i].firstChild.firstChild.style.color}`;
+						lists.childNodes[i].firstChild.firstChild.style.color = 'transparent';
+
+						for (let j=0; j < 3; j++) {
+							lists.childNodes[i].firstChild.style.border = 'transparent';
+							lists.childNodes[i].firstChild.lastChild.childNodes[j].style.color = 'transparent';
+							lists.childNodes[i].firstChild.lastChild.childNodes[j].style.textShadow = `0 0 9px rgba(50,205,50, 0.7)`;
+							lists.childNodes[i].firstChild.lastChild.childNodes[j].style.borderColor = 'transparent';
+							lists.childNodes[i].firstChild.lastChild.childNodes[j].style.boxShadow = `0 10px 8px -8px rgba(50,205,50, 0.7), 0 -10px 8px -8px rgba(50,205,50, 0.7)`;
+						}
+
+						lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.color = 'transparent';
+						lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.textShadow = `0 0 9px rgba(50,205,50, 0.7)`;
+						lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.border = 'transparent';
+						lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.boxShadow = `10px 0 8px -8px rgba(50,205,50, 0.7), -10px 0 8px -8px rgba(50,205,50, 0.7)`;
+						lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.color = 'transparent';
+						lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.textShadow = `0 0 9px rgba(50,205,50, 0.7)`;
+						lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.borderColor = 'transparent';
+						lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.boxShadow = `10px 0 8px -8px rgba(50,205,50, 0.7), -10px 0 8px -8px rgba(50,205,50, 0.7)`;	
+					}
+				}
+			}
+
+				text = This.parentNode.parentNode.firstChild.innerHTML; 
+				color = This.parentNode.parentNode.firstChild.style.color; 
+				This.parentNode.parentNode.removeChild(This.parentNode.parentNode.firstChild); 
+				let button = document.createElement('button'); 
+				button.innerHTML = '✔'; 
+				button.style = 'display: none'; 
+				This.parentNode.parentNode.prepend(button); 
+				let inp = document.createElement('input'); 
+				This.parentNode.parentNode.prepend(inp); 
+				inp.value = text; 
+				inp.focus(); 
+
+				if (color == 'rgba(0, 0, 0, 0.4)'){
+					inp.style.color = 'rgba(0, 0, 0, 0.4)'; 
+					This.parentNode.firstChild.innerHTML = '⨯'; 
+					This.parentNode.firstChild.style.fontSize = '20px'
+				} else if (header.style.color == '') {
+					inp.style.color = '' 
+				} else {
+					inp.style.color = header.style.color
+				} 
+
+
+				// Background's click = done
+
+				inp.addEventListener('blur', function() {
+					button.click()
+				});
+
+
+				// Enter = done
+
+				inp.addEventListener('keydown', function() {
+					if (event.keyCode == '13') {
+						button.click()
+					}
+				}); 
+
+
+
+
+
+
+				// Make item's changes done on blur or enter's press
+
+				button.addEventListener('click', function() {
+					editing = false;
+
+					if (header.style.color != '') {
+
+						for (let i=0; i < lists.childElementCount; i++) {
+							if (lists.childNodes[i].firstChild !== This.parentNode.parentNode) {
+								lists.childNodes[i].firstChild.firstChild.style.color = header.style.color;
+								lists.childNodes[i].firstChild.firstChild.style.textShadow = null;
+
+								for (let j=0; j < 3; j++) {
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.color = header.style.color;
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.textShadow = null;
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.border = '';
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.boxShadow = null;
+								}
+
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.textShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.border = '';
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.boxShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.textShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.border = '';
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.boxShadow = null;
+								lists.childNodes[i].firstChild.lastChild.firstChild.click();
+								lists.childNodes[i].firstChild.lastChild.firstChild.click();					
+							}
+						}
+					} else {
+						for (let i=0; i < lists.childElementCount; i++) {
+							if (lists.childNodes[i].firstChild !== This.parentNode.parentNode) {
+								lists.childNodes[i].firstChild.firstChild.style.color = '';
+								lists.childNodes[i].firstChild.firstChild.style.textShadow = null;
+
+								for (let j=0; j < 3; j++) {
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.color = '';
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.textShadow = null;
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.border = '';
+									lists.childNodes[i].firstChild.lastChild.childNodes[j].style.boxShadow = null;
+								}
+
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.textShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.border = '';
+								lists.childNodes[i].firstChild.lastChild.lastChild.firstChild.style.boxShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.textShadow = null;
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.border = '';
+								lists.childNodes[i].firstChild.lastChild.lastChild.lastChild.style.boxShadow = null;
+								lists.childNodes[i].firstChild.lastChild.firstChild.click();
+								lists.childNodes[i].firstChild.lastChild.firstChild.click();					
+							}
+						}
+					}
+
+
+					if (inp.value.trim() != '') {
+						let newInp = this.parentNode.firstChild.value.trim(); 
+						this.parentNode.removeChild(this.parentNode.firstChild); 
+						let P = document.createElement('p'); 
+						this.parentNode.prepend(P); 
+
+						if (color == 'rgba(0, 0, 0, 0.4)'){
+							P.style.color = 'rgba(0, 0, 0, 0.4)'; 
+							P.style.textDecoration = 'line-through'; 
+							this.parentNode.childNodes[2].firstChild.innerHTML = '⨯'; 
+							this.parentNode.childNodes[2].firstChild.style.fontSize = '20px'
+						} else if (header.style.color == ''){
+							P.style.color = ''
+						} else {
+							P.style.color = header.style.color
+						} 
+
+						P.innerHTML = newInp; 
+						this.parentNode.removeChild(this.parentNode.childNodes[1]); 
+						localStorage.setItem('Todoist_data', lists.innerHTML)
+						
+					} else {
+						This.parentNode.parentNode.parentNode.style = "transition: 1s ease; transform: rotateX(110deg)";
+
+						setTimeout(function() {
+							This.parentNode.parentNode.parentNode.parentNode.removeChild(This.parentNode.parentNode.parentNode);
+							localStorage.setItem('Todoist_data', lists.innerHTML)
+						}, 520)
+					}
+				}			
+			)}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Remove item on buttonRemove's click
+
+		function ButtonRemove(This) {
+			if (confirm('Are you sure?')) {
+
+				This.parentNode.parentNode.parentNode.style = "transition: 1s ease; transform: rotateX(110deg)";
+
+				setTimeout(function() {
+					This.parentNode.parentNode.parentNode.parentNode.removeChild(This.parentNode.parentNode.parentNode);
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 520)
+
+			} 
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Upper item on buttonUp's click
+
+		function ButtonUp(This) {
+			if(lists.childElementCount == 1) {
+
+			} else if(lists.childElementCount == 2 && This.parentNode.parentNode.parentNode.parentNode == lists.firstChild) {
+
+				let prev = lists.lastChild; 
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				prev.style.transform = 'translateY(-50%)'; 
+				cur.style.transform = 'translateY(50%)'; 
+
+				setTimeout(function() {
+					prev.style.transform = ''; 
+					cur.style.transform = ''; 
+					let pre = prev.innerHTML; 
+					prev.innerHTML = cur.innerHTML; 
+					cur.innerHTML = pre; 
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 500)
+			} else if (This.parentNode.parentNode.parentNode.parentNode == lists.firstChild) {
+
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				let last = document.createElement("div");
+				last.style.transform = 'translateY(50%)'; 
+				last.style.opacity = '0'; 
+				cur.style.transform = 'translateY(-50%)'; 
+				cur.style.opacity = '0'; 
+
+				setTimeout(function() {
+					last.innerHTML = cur.innerHTML;
+					lists.appendChild(last);
+					lists.removeChild(cur);
+					last.style.transform = ''; 
+					last.style.opacity = ''; 
+					window.scrollTo(0, 99999);
+					localStorage.setItem('Todoist_data', lists.innerHTML);
+				}, 500)
+			} else {
+				let prev = This.parentNode.parentNode.parentNode.parentNode.previousSibling; 
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				prev.style.transform = 'translateY(50%)'; 
+				cur.style.transform = 'translateY(-50%)'; 
+
+				setTimeout(function() {
+					prev.style.transform = ''; 
+					cur.style.transform = ''; 
+					let pre = prev.innerHTML; 
+					prev.innerHTML = cur.innerHTML; 
+					cur.innerHTML = pre; 
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 500)
+			}
+		}
+
+
+
+
+
+
+
+
+
+		// Lower item on buttonDown's click
+
+		function ButtonDown(This) {
+			if (lists.childElementCount == 1) {
+
+			} else if(lists.childElementCount == 2 && This.parentNode.parentNode.parentNode.parentNode == lists.lastChild) {
+
+				let prev = lists.firstChild; 
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				prev.style.transform = 'translateY(50%)'; 
+				cur.style.transform = 'translateY(-50%)'; 
+
+				setTimeout(function() {
+					prev.style.transform = ''; 
+					cur.style.transform = ''; 
+					let pre = prev.innerHTML; 
+					prev.innerHTML = cur.innerHTML; 
+					cur.innerHTML = pre; 
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 500)
+			} else if (This.parentNode.parentNode.parentNode.parentNode == lists.lastChild) {
+
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				let first = document.createElement("div");
+				first.style.transform = 'translateY(-50%)'; 
+				first.style.opacity = '0'; 
+				cur.style.transform = 'translateY(50%)'; 
+				cur.style.opacity = '0'; 	
+
+				setTimeout(function() {
+					first.innerHTML = cur.innerHTML;
+					lists.prepend(first);
+					lists.removeChild(cur);
+					first.style.transform = ''; 
+					first.style.opacity = ''; 
+					window.scrollTo(0, 0);
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 500)
+			} else {
+				let next = This.parentNode.parentNode.parentNode.parentNode.nextSibling; 
+				let cur = This.parentNode.parentNode.parentNode.parentNode; 
+				next.style.transform = 'translateY(-50%)'; 
+				cur.style.transform = 'translateY(50%)'; 
+
+				setTimeout(function() {
+					next.style.transform = ''; 
+					cur.style.transform = ''; 
+					let nex = next.innerHTML; 
+					next.innerHTML = cur.innerHTML; 
+					cur.innerHTML = nex; 
+					localStorage.setItem('Todoist_data', lists.innerHTML)
+				}, 500)
+			}
+		}
+
+
+
+
+
+
+
+
+
+		// Focus on textbox on key press
+
+		document.addEventListener("keydown", function() {
+
+			if (!editing && !ctrl) {
+
+				// Disabling focus on some keys' click
+
+				if (event.keyCode != '13' && event.keyCode != '37' && event.keyCode != '38' && event.keyCode != '39' && event.keyCode != '40' && event.keyCode != '17' && event.keyCode != '18' && event.keyCode != '91' && event.keyCode != '16' && event.keyCode != '20' && event.keyCode != '9' && event.keyCode != '27' &&event.keyCode != '112' && event.keyCode != '113' && event.keyCode != '114' && event.keyCode != '115' && event.keyCode != '116' && event.keyCode != '117' && event.keyCode != '118' && event.keyCode != '119' &&event.keyCode != '120' && event.keyCode != '121' && event.keyCode != '122' && event.keyCode != '123' && event.keyCode != '44') {
+
+						window.scrollTo(0, 0);
+						textbox.focus()
+
+				} 
+
+
+
+
+				// Unfocusing textbox after adding new item
+
+				if (textbox.value.trim() != '' && event.keyCode == '13'){
+					textbox.blur()
+				}
+			}
+
+
+
+
+			// Checking if Ctrl is pressed
+
+			if (event.keyCode == '17') {
+				ctrl = true
+			}
+
+
+
+
+			// Paste to textbox on Ctrl-V
+
+			if (ctrl && !editing && event.keyCode == '86') {
+				textbox.focus()
+			}
+
+		});
+
+
+
+
+
+
+
+
+
+		// Disabling focus on Ctrl's click
+
+		document.addEventListener('keyup', function() {
+			if (event.keyCode == '17') {
+				ctrl = false
+			}
+		});
+
+
+
+
+		document.addEventListener('mousemove', function() {
+			userY = event.clientY
+		});
+
+
+
+
+
+		for (var i = lists.childElementCount - 1; i >= 0; i--) {
+			lists.childNodes[i].addEventListener('mousedown', function() {
+				if(document.activeElement.tagName != 'BUTTON') {
+					currentY = userY;
+					
+				}
+			})
+		}
+
+
+
+
+
+
+
+		for (var i = lists.childElementCount - 1; i >= 0; i--) {
+			lists.childNodes[i].addEventListener('mouseup', function() {
+				if(document.activeElement.tagName != 'BUTTON') {
+					console.log(2)
+				}
+			})
+		}
+
+
+
+
+
+
+
+		// Launch theme setup
+
+		if (count != null && count != 0) {
+			count --;
+			buttonTheme.click();
+		}
+
+
+	</script>
+</body>
+</html>

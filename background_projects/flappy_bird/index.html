@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Flappy Bird</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+	<style type="text/css">
+		@keyframes start {
+			0% {
+				opacity: 0
+			}
+
+			50% {
+				opacity: 100%
+			}
+
+			100% {
+				opacity: 0
+			}
+		}
+
+		@keyframes menu_button {
+			from {
+				transform: rotateZ(0)
+			}
+
+			to {
+				transform: rotateZ(360deg)
+			}
+		}
+
+		@keyframes menu_button_2 {
+			0% {
+				transform: scale(1)
+			}
+
+			50% {
+				transform: scale(1.2)
+			}
+
+			100% {
+				transform: scale(1)
+			}
+		}
+
+		@keyframes tip {
+			0% {
+				opacity: 0
+			}
+
+			50% {
+				opacity: 60%
+			}
+
+			100% {
+				opacity: 0
+			}
+		}
+
+		@keyframes skin {
+			from {
+				transform: rotateX(450deg) translateY(-150px)
+			}
+
+			to {
+				transform: none
+			}
+		}
+
+		@keyframes level {
+			from {
+				transform: rotateX(-450deg) translateY(150px)
+			}
+
+			to {
+				transform: none
+			}
+		}
+
+
+		* {
+			font-family: 'Audiowide', cursive;
+			user-select: none;
+		}
+
+		body {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.start {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#start {
+			flex: 1 1 auto;
+			opacity: 0;
+			/*color: transparent;*/
+			text-shadow: 0 5px 2px #35A2E1, 0 -5px 2px #FA4B4B;
+			animation: start 4s ease-in-out;
+			margin-top: 45vh
+		}
+
+		#copyright {
+			align-self: flex-end;
+			opacity: 0;
+			font-size: 4vh;
+			animation: start 4s ease-in-out;
+			padding-right: 5px;
+			text-shadow: 0 4px 1px #35A2E1, 0 -4px 1px #FA4B4B;
+		}
+
+		canvas {
+			background: linear-gradient(to bottom, #222, #3040DC, #A385E7, #FCB5EF, #FEDDE4);
+			/*background: linear-gradient(to bottom, #020245, #000E9C, #373FDA, #7583EB, #BAB8FE);*/
+			/*background: linear-gradient(to bottom, #222, #9B481B, #D8AC34, #FAD921, #FEFFA8);*/
+			/*background: linear-gradient(to bottom, #222, #0A4E06, #1A6E0F, #13A013, #80FF80);*/
+			width: 100%;
+			height: 100%;
+		}
+
+		#menu {
+			position: absolute;
+			width: 40vw;
+			height: 50vh;
+			background: rgba(0, 0, 0, 0.5);
+			border: 0.1em double rgba(12, 127, 141, 0.5);
+			border-radius: 15vh;
+			box-shadow: 0 0 30px #000;
+			display: none;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-size: 50px;
+			backdrop-filter: blur(5px);
+		}
+
+		#highscore {
+			margin: 6vh 0 3vh 0;
+			font-size: 1em;
+			color: #fff;
+			padding: 10px;
+		}
+
+		#score {
+			flex: 1 1 auto;
+			font-size: 0.95em;
+			color: #fff;
+			border-radius: 30px;
+			padding: 10px;
+		}
+
+		.buttons {
+			margin-bottom: 3vh;
+			margin-left: 0.5vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#mute {
+			width: 2em;
+			height: 2em;
+			background: transparent;
+			outline: none;
+			border: none;
+			color: #fff;
+			cursor: pointer;
+			background-image: url('flappy_bird_unmuted.png');
+			background-size: 250%;
+			background-position: center;
+		}
+
+		#menu_button {
+			background: transparent;
+			outline: none;
+			border: none;
+			font-size: 2.5em;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.arrows {
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#skin_header {
+			display: none;
+			position: absolute;
+			top: -48vh;
+			font-size: 80px;
+			color: #fff;
+			text-shadow: 5px 5px 2px #000;
+			animation: 1.3s skin ease-in-out;
+		}
+
+		#skin_right_arrow,
+		#skin_left_arrow {
+			display: none;
+			position: absolute;
+			left: 5vw;
+			top: -22vh;
+			width: 70px;
+			height: 50px;
+			border: none;
+			background: transparent;
+			cursor: pointer;
+			outline: none;
+			font-size: 2em;
+			color: #fff;
+		}
+
+		#skin_left_arrow {
+			left: initial;
+			right: 5vw;
+			transform: rotateY(180deg);
+		}
+
+		#level_header {
+			display: none;
+			position: absolute;
+			top: 15vh;
+			font-size: 80px;
+			color: #fff;
+			text-shadow: 5px 5px 2px #000;
+			animation: 1.3s level ease-in-out;
+		}
+
+		#level_text {
+			display: none;
+			position: absolute;
+			top: 37vh;
+			border: none;
+			background: transparent;
+			cursor: pointer;
+			outline: none;
+			color: green;
+			text-shadow: 1px 1px 1px #000;
+		}
+
+		#level_right_arrow,
+		#level_left_arrow {
+			display: none;
+			position: absolute;
+			left: 5vw;
+			top: 39vh;
+			width: 70px;
+			height: 50px;
+			border: none;
+			background: transparent;
+			cursor: pointer;
+			outline: none;
+			font-size: 2em;
+			color: #fff;
+		}
+
+		#level_left_arrow {
+			display: none;
+			left: initial;
+			right: 5vw;
+			transform: rotateY(180deg);
+		}
+
+		#tip {
+			display: none;
+			position: absolute;
+			top: 48vh;
+			opacity: 0;
+			animation: tip 3s ease-in-out 4s infinite;
+			font-size: 30px;
+			color: #333;
+		}
+
+		#button_pause {
+			display: none;
+			position: absolute;
+			left: 10px;
+			top: 0;
+			color: #fff;
+			font-size: 60px;
+			text-shadow: 0 0 5px #000;
+			cursor: pointer;
+		}
+
+		.arrow {
+			text-shadow: 0 0 2px #000
+		}
+	</style>
+</head>
+
+<body oncontextmenu="return false;">
+
+	<audio src="flappy_bird_music.mp3" id="music"></audio>
+	<audio src="flappy_bird_death.wav" id="death"></audio>
+	<audio src="flappy_bird_entry.wav" id="entry_sound"></audio>
+	<audio src="flappy_bird_switch.wav" id="switch_sound"></audio>
+
+	<div class="start">
+		<div id="start">FLAPPY BIRD</div>
+
+		<div id="copyright">©Made by ALEX</div>
+	</div>
+
+	<div id="menu">
+		<p id="highscore"></p>
+		<p id="score">Score: 0</p>
+		<div class="buttons">
+
+			<button id="menu_button" onmouseover="if (this.innerHTML == '↻') {this.style.animation = 'menu_button 1s'} else {this.style.animation = 'menu_button_2 2s infinite'}" onmouseout="this.style.animation = null">▷</button>
+
+			<div id="mute"> </div>
+
+		</div>
+	</div>
+	<canvas id="canvas"></canvas>
+
+	<p id="tip">Press ENTER or click to start</p>
+
+	<div class="arrows">
+		<p id="skin_header">SKIN</p>
+		<button id="skin_right_arrow" class="arrow" onfocus="this.blur()">▷</button>
+		<button id="skin_left_arrow" class="arrow" onfocus="this.blur()">▷</button>
+		<p id="level_header">LEVEL</p>
+		<button id="level_right_arrow" class="arrow" onfocus="this.blur()">▷</button>
+		<p id="level_text">Easy</p>
+		<button id="level_left_arrow" class="arrow" onfocus="this.blur()">▷</button>
+	</div>
+
+	<div id="button_pause">II</div>
+
+
+	<script type="text/javascript">
+		let retry = !!parseInt(localStorage.getItem('flappy_bird_retry'));
+		let muted = !!parseInt(localStorage.getItem('flappy_bird_muted'));
+
+
+		if (!muted && !retry) {
+			entry_sound.volume = 0.03;
+
+			setTimeout(() => {
+				entry_sound.play()
+			}, 500);
+		}
+
+
+
+		start.style.fontSize = `${(innerHeight+innerWidth)/36}px`;
+		copyright.style.fontSize = `${(innerHeight+innerWidth)/70}px`;
+
+
+
+		function Game() {
+
+			const start = document.getElementsByClassName('start')[0];
+			start.style.display = 'none';
+			const canvas = document.getElementById('canvas');
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			const scale = Math.floor(innerWidth / 42);
+			const ctx = canvas.getContext("2d");
+			const button = document.getElementById('menu_button');
+			const menuScore = document.getElementById('score');
+			const menuHighscore = document.getElementById('highscore');
+			const skinRightArrow = document.getElementById('skin_right_arrow');
+			const skinLeftArrow = document.getElementById('skin_left_arrow');
+			const levelRightArrow = document.getElementById('level_right_arrow');
+			const levelLeftArrow = document.getElementById('level_left_arrow');
+			const levelText = document.getElementById('level_text');
+			const levelHeader = document.getElementById('level_header');
+			const skinHeader = document.getElementById('skin_header');
+			const buttonPause = document.getElementById('button_pause');
+
+			let clouds = [];
+			let tubes = [];
+			let score = 0;
+			let loop1, loop2;
+			let highscore;
+			let highscoreEasy = localStorage.getItem('flappy_bird_highscore_easy');
+			let highscoreMedium = localStorage.getItem('flappy_bird_highscore_medium');
+			let highscoreHard = localStorage.getItem('flappy_bird_highscore_hard');
+			let keyup, pause, started, startedGame, tab = false;
+			let userY = innerHeight / 2 - innerHeight / 5.5;
+			let skin = parseInt(localStorage.getItem('flappy_bird_skin'));
+			let level = parseInt(localStorage.getItem('flappy_bird_level'));
+
+
+			music.volume = 0.12;
+
+
+
+			if (!skin) {
+				skin = 0
+			}
+
+
+			if (!level) {
+				level = 0
+
+			}
+
+
+			if (!parseInt(highscoreEasy)) {
+				highscoreEasy = 0;
+			}
+
+
+			if (!parseInt(highscoreMedium)) {
+				highscoreMedium = 0;
+			}
+
+
+			if (!parseInt(highscoreHard)) {
+				highscoreHard = 0;
+			}
+
+
+
+			if (level === 0) {
+				highscore = highscoreEasy;
+			} else if (level === 1) {
+				levelText.innerHTML = "Medium";
+				levelText.style.color = "orange";
+				highscore = highscoreMedium;
+			} else {
+				levelText.innerHTML = "Hard";
+				levelText.style.color = "red";
+				highscore = highscoreHard;
+			}
+
+
+
+
+
+
+
+
+
+			if (muted) {
+				mute.style.background = `url('flappy_bird_muted.png')`;
+				mute.style.backgroundSize = `250%`;
+				mute.style.backgroundPosition = 'center'
+			}
+
+
+
+
+
+
+
+
+
+			function Bird() {
+				this.x = innerWidth / 2;
+				this.y = userY;
+				this.radius = innerWidth / 36.57;
+				this.dy = innerHeight / 308.57;
+
+
+				this.draw = function() {
+
+					if (skin === 0 || skin === 3) {
+						this.color1 = "#514F50";
+						this.color2 = "#F8E3E8";
+					} else if (skin === 1 || skin === 4) {
+						this.color1 = "#1C2385";
+						this.color2 = "#D1DFFA";
+					} else if (skin === 2 || skin === 5) {
+						this.color1 = "#2D0202";
+						this.color2 = "#FF0000";
+					}
+
+
+
+					if (skin < 3) {
+
+						// Back wing
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x - this.radius, this.y - this.radius / 6.28, this.radius / 1.6, this.x - this.radius / 1.6, this.y - this.radius / 6.28, this.radius / 3.75);
+						this.gradient.addColorStop(0, this.color1);
+						this.gradient.addColorStop(.9, this.color2);
+						ctx.arc(this.x - this.radius, this.y - this.radius / 6.428, this.radius / 1.607, 2.3, Math.PI * 2, true);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left paw
+
+						ctx.beginPath();
+						ctx.arc(this.x - this.radius / 7.5, this.y + this.radius / 0.98, this.radius / 9.375, 1.5, Math.PI * 2, false);
+						ctx.strokeStyle = "#1C1A1A";
+						ctx.fillStyle = "#1C1A1A";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right paw
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 7.5, this.y + this.radius / 0.98, this.radius / 9.375, 1.5, Math.PI * 2, false);
+						ctx.strokeStyle = "#1C1A1A";
+						ctx.fillStyle = "#1C1A1A";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Body
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, 3);
+						this.gradient.addColorStop(0, this.color1);
+						this.gradient.addColorStop(1, this.color2);
+						ctx.shadowColor = '#000';
+						ctx.shadowBlur = 9;
+						ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Beak
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x + this.radius / 0.9375, this.y + this.radius / 15, this.radius / 3.46, this.x + this.radius, this.y + this.radius / 15, 1);
+						this.gradient.addColorStop(0, '#333');
+						this.gradient.addColorStop(.4, '#CF8821');
+						this.gradient.addColorStop(.8, '#F19C38');
+						ctx.arc(this.x + this.radius / 0.9375, this.y + this.radius / 11.25, this.radius / 3.46, 2.1, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Front wing
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x - this.radius / 0.882, this.y - this.radius / 3.46, this.radius / 1.73, this.x - this.radius / 0.978, this.y - this.radius / 3.46, this.radius / 4.5);
+						this.gradient.addColorStop(0, this.color1);
+						this.gradient.addColorStop(1, this.color2);
+						ctx.arc(this.x - this.radius / 0.882, this.y - this.radius / 3.46, this.radius / 1.73, 2.3, Math.PI * 2, true);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Eye
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 2.37, this.y - this.radius / 3.75, this.radius / 5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#000";
+						ctx.fillStyle = "#000";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Pupil
+
+						ctx.beginPath();
+						ctx.shadowBlur = 0;
+						ctx.arc(this.x + this.radius / 2.09, this.y - this.radius / 3.75, bird.radius / 22.5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#fff";
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+						ctx.stroke();
+					} else if (skin < 6) {
+
+						// Left paw
+
+						ctx.beginPath();
+						ctx.arc(this.x - this.radius / 6.43, this.y + this.radius / 0.9375, this.radius / 11.84, 3, Math.PI * 2, false);
+						ctx.strokeStyle = "#1C1A1A";
+						ctx.fillStyle = "#1C1A1A";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right paw
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 6.43, this.y + this.radius / 0.9375, this.radius / 11.84, 3, Math.PI * 2, false);
+						ctx.strokeStyle = "#1C1A1A";
+						ctx.fillStyle = "#1C1A1A";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left wing
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x - this.radius / 0.978, this.y + this.radius / 9, this.radius / 1.9565, this.x - this.radius / 0.978, this.y, 1);
+						this.gradient.addColorStop(.3, this.color1);
+						this.gradient.addColorStop(1, this.color2);
+						ctx.moveTo(this.x, this.y);
+						ctx.bezierCurveTo(this.x - this.radius / 1.55, this.y + this.radius / 4.5, this.x - this.radius / 0.652, this.y + this.radius / 7.5, this.x - this.radius / 0.714, this.y - this.radius / 5.625);
+						ctx.shadowBlur = 15;
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right wing
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x + this.radius / 0.978, this.y + this.radius / 9, this.radius / 1.9565, this.x + this.radius / 0.978, this.y, 1);
+						this.gradient.addColorStop(.3, this.color1);
+						this.gradient.addColorStop(1, this.color2);
+						ctx.moveTo(this.x, this.y);
+						ctx.bezierCurveTo(this.x + this.radius / 1.55, this.y + this.radius / 4.5, this.x + this.radius / 0.652, this.y + this.radius / 7.5, this.x + this.radius / 0.714, this.y - this.radius / 5.625);
+						ctx.shadowBlur = 15;
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Body
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, this.radius / 15);
+						this.gradient.addColorStop(0, this.color1);
+						this.gradient.addColorStop(1, this.color2);
+						ctx.shadowColor = '#000';
+						ctx.shadowBlur = 9;
+						ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Beak
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x, this.y + this.radius / 4.09, this.radius / 4.09, this.x, this.y + this.radius / 4.09, 1);
+						this.gradient.addColorStop(0, '#777');
+						this.gradient.addColorStop(.1, '#D85544');
+						this.gradient.addColorStop(.6, '#F57F73');
+						this.gradient.addColorStop(.9, '#FDC1C1');
+						ctx.arc(this.x, this.y + this.radius / 3, this.radius / 4.09, 3.1, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right eye
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 2.25, this.y - this.radius / 3.75, this.radius / 5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#666";
+						ctx.fillStyle = "#F8F1F1";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left eye
+
+						ctx.beginPath();
+						ctx.arc(this.x - this.radius / 2.25, this.y - this.radius / 3.75, this.radius / 5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#666";
+						ctx.fillStyle = "#F8F1F1";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right pupil
+
+						ctx.beginPath();
+						ctx.shadowBlur = 0;
+						ctx.arc(this.x + this.radius / 2.142, this.y - this.radius / 3.75, this.radius / 13.636, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#0E0E58";
+						ctx.fillStyle = "#0E0E58";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left pupil
+
+						ctx.beginPath();
+						ctx.shadowBlur = 0;
+						ctx.arc(this.x - this.radius / 2.142, this.y - this.radius / 3.75, this.radius / 13.636, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#0E0E58";
+						ctx.fillStyle = "#0E0E58";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+					} else {
+
+
+						// Left wing
+
+						ctx.beginPath();
+						ctx.moveTo(this.x - this.radius / 2.25, this.y + this.radius / 4.5);
+						ctx.bezierCurveTo(this.x - this.radius / 0.833, this.y - this.radius / 0.9, this.x - this.radius / 0.703, this.y + this.radius / 1.125, this.x - this.radius / 0.7758, this.y + this.radius / 1.5);
+						ctx.shadowBlur = 15;
+						ctx.strokeStyle = '#000';
+						ctx.fillStyle = '#555';
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right wing
+
+						ctx.beginPath();
+						ctx.moveTo(this.x + this.radius / 2.25, this.y + this.radius / 4.5);
+						ctx.bezierCurveTo(this.x + this.radius / 0.833, this.y - this.radius / 0.9, this.x + this.radius / 0.703, this.y + this.radius / 1.125, this.x + this.radius / 0.7758, this.y + this.radius / 1.5);
+						ctx.shadowBlur = 15;
+						ctx.strokeStyle = '#000';
+						ctx.fillStyle = '#555';
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+
+						// Body
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, 3);
+						this.gradient.addColorStop(0, '#000');
+						this.gradient.addColorStop(1, '#6E6E6E');
+						ctx.shadowColor = '#000';
+						ctx.shadowBlur = 9;
+						ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+
+						// Right eye
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 3, this.y - this.radius / 3.75, this.radius / 5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#666";
+						ctx.fillStyle = "#FC5757";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left eye
+
+						ctx.beginPath();
+						ctx.arc(this.x - this.radius / 3, this.y - this.radius / 3.75, this.radius / 5, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#666";
+						ctx.fillStyle = "#FC5757";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Right pupil
+
+						ctx.beginPath();
+						ctx.shadowBlur = 0;
+						ctx.arc(this.x + this.radius / 2.81, this.y - this.radius / 3.75, this.radius / 15, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#0E0E58";
+						ctx.fillStyle = "#0E0E58";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left pupil
+
+						ctx.beginPath();
+						ctx.shadowBlur = 0;
+						ctx.arc(this.x - this.radius / 2.81, this.y - this.radius / 3.75, this.radius / 15, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#0E0E58";
+						ctx.fillStyle = "#0E0E58";
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+						// Left horn
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x - this.radius / 1.956, this.y - this.radius / 1.5, this.radius / 1.956, this.x - this.radius / 1.956, this.y - this.radius / 1.5, this.radius / 15);
+						this.gradient.addColorStop(0, '#000');
+						this.gradient.addColorStop(.8, '#CD0202');
+						this.gradient.addColorStop(1, '#FF5C5C');
+						ctx.moveTo(this.x - this.radius / 1.184, this.y - this.radius / 0.9);
+						ctx.bezierCurveTo(this.x - this.radius / 1.097, this.y - this.radius / 3.214, this.x - this.radius / 2.142, this.y - this.radius / 1.363, this.x - this.radius / 1.45, this.y - this.radius / 1.125);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+
+						// Right horn
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x + this.radius / 1.956, this.y - this.radius / 1.5, this.radius / 1.956, this.x + this.radius / 1.956, this.y - this.radius / 1.5, this.radius / 15);
+						this.gradient.addColorStop(0, '#000');
+						this.gradient.addColorStop(.8, '#CD0202');
+						this.gradient.addColorStop(1, '#FF5C5C');
+						ctx.moveTo(this.x + this.radius / 1.184, this.y - this.radius / 0.9);
+						ctx.bezierCurveTo(this.x + this.radius / 1.097, this.y - this.radius / 3.214, this.x + this.radius / 2.142, this.y - this.radius / 1.363, this.x + this.radius / 1.45, this.y - this.radius / 1.125);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+
+						// Mouth
+
+						ctx.beginPath();
+						this.gradient = ctx.createRadialGradient(this.x, this.y + this.radius / 2.25, this.radius / 4.09, this.x, this.y + this.radius / 2.25, this.radius / 22.5);
+						this.gradient.addColorStop(0, '#333');
+						this.gradient.addColorStop(.8, '#C50A0A');
+						this.gradient.addColorStop(1, '#CB4040');
+						ctx.arc(this.x, this.y + this.radius / 2.25, this.radius / 4.09, 0, Math.PI * 2, false);
+						ctx.strokeStyle = this.gradient;
+						ctx.fillStyle = this.gradient;
+						ctx.fill();
+						ctx.stroke();
+
+
+
+
+
+						// Teeth
+
+						ctx.beginPath();
+						ctx.arc(this.x - this.radius / 28.125, this.y + this.radius / 3.46, 1, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#fff";
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+						ctx.stroke();
+
+						ctx.beginPath();
+						ctx.arc(this.x + this.radius / 28.125, this.y + this.radius / 3.46, 1, 0, Math.PI * 2, false);
+						ctx.strokeStyle = "#fff";
+						ctx.fillStyle = "#fff";
+						ctx.fill();
+						ctx.stroke();
+
+
+					}
+				}
+
+
+				this.death = function() {
+					if (this.y + this.radius / 1.285 >= innerHeight || this.y - this.radius / 1.5 <= 0) {
+						music.volume = 0;
+
+						if (!muted) {
+							death.volume = 0.2;
+							music.pause();
+							death.play();
+						}
+
+						clearInterval(loop1);
+						clearInterval(loop2);
+						buttonPause.style.display = 'none';
+						menu.style.display = 'flex';
+						button.innerHTML = '↻';
+
+					}
+
+					for (const tube of tubes) {
+						if (tube.y == innerHeight) {
+							if (this.y + this.radius / 1.125 >= innerHeight - tube.height && this.x + this.radius / 1.046 >= tube.x && this.x - tube.x < tube.width + this.radius) {
+
+								if (!muted) {
+									music.pause();
+									death.volume = 0.2;
+									death.play();
+								}
+
+								clearInterval(loop1);
+								clearInterval(loop2);
+								menu.style.display = 'flex';
+								button.innerHTML = '↻';
+							}
+						} else {
+							if (this.y - this.radius / 1.046 <= tube.height && this.x + this.radius / 1.046 >= tube.x && this.x - tube.x < tube.width + this.radius) {
+								if (!muted) {
+									music.pause();
+									death.volume = 0.2;
+									death.play();
+								}
+
+								clearInterval(loop1);
+								clearInterval(loop2);
+								menu.style.display = 'flex';
+								button.innerHTML = '↻';
+							}
+						}
+					}
+				}
+
+
+				this.move = function() {
+
+					this.y += this.dy;
+				}
+			}
+
+
+
+
+
+
+
+
+
+			function Clouds(x, y) {
+				this.radius1 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.radius2 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.radius3 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.radius4 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.radius5 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.radius6 = Math.floor(Math.random() * (innerWidth / 25 - innerWidth / 30)) + innerWidth / 30;
+				this.middleArcPosRandom = Math.floor(Math.random() * (innerWidth / 42.66 - innerWidth / 32)) + innerWidth / 32;
+				this.topLeftArcRandom = Math.random();
+				this.topRightArcRandom = Math.random();
+				this.updownArcRandom = Math.random();
+				this.color1 = '#CCC5C5';
+				this.color2 = '#fff';
+
+				if (Math.random() > 0.5) {
+					this.updown = innerWidth / 64
+				} else {
+					this.updown = -innerWidth / 64
+				}
+
+				this.x1 = x;
+				this.y1 = y;
+				this.x2 = this.x1 + innerWidth / 43;
+				this.y2 = this.y1 + this.updown;
+				this.x3 = this.x1 + this.middleArcPosRandom;
+				this.y3 = this.y1;
+				this.x4 = this.x1 + innerWidth / 28;
+				this.y4 = this.y1;
+				this.x5 = this.x1;
+				this.y5 = this.y1 - innerWidth / 43;
+				this.x6 = this.x1 + innerWidth / 35;
+				this.y6 = this.y1 - innerWidth / 50;
+
+
+				this.draw = function() {
+					this.gradient1 = ctx.createRadialGradient(this.x1, this.y1, this.radius1, this.x1, this.y1, 3);
+					this.gradient1.addColorStop(0, this.color1);
+					this.gradient1.addColorStop(.99, this.color2);
+
+					this.gradient2 = ctx.createRadialGradient(this.x2, this.y2, this.radius2, this.x2, this.y2, 3);
+					this.gradient2.addColorStop(0, this.color1);
+					this.gradient2.addColorStop(.99, this.color2);
+
+					this.gradient3 = ctx.createRadialGradient(this.x3, this.y3, this.radius3, this.x3, this.y3, 3);
+					this.gradient3.addColorStop(0, this.color1);
+					this.gradient3.addColorStop(.99, this.color2);
+
+					this.gradient4 = ctx.createRadialGradient(this.x4, this.y4, this.radius4, this.x4, this.y4, 3);
+					this.gradient4.addColorStop(0, this.color1);
+					this.gradient4.addColorStop(.99, this.color2);
+
+					this.gradient5 = ctx.createRadialGradient(this.x5, this.y5, this.radius5, this.x5, this.y5, 3);
+					this.gradient5.addColorStop(0, this.color1);
+					this.gradient5.addColorStop(.99, this.color2);
+
+					this.gradient6 = ctx.createRadialGradient(this.x6, this.y6, this.radius6, this.x6, this.y6, 3);
+					this.gradient6.addColorStop(0, this.color1);
+					this.gradient6.addColorStop(.99, this.color2);
+
+					ctx.shadowColor = '#000';
+					ctx.shadowBlur = 0;
+					ctx.strokeStyle = "transparent";
+
+					// Left arc
+
+					ctx.beginPath();
+					ctx.arc(this.x1, this.y1, this.radius1, 0, Math.PI * 2, false);
+					ctx.fillStyle = this.gradient1;
+					ctx.fill();
+					ctx.closePath();
+
+
+
+					// Right arc
+
+					ctx.beginPath();
+					ctx.arc(this.x4, this.y4, this.radius4, 0, Math.PI * 2, false);
+					ctx.fillStyle = this.gradient4;
+					ctx.fill();
+					ctx.closePath();
+
+
+
+					// Top-left arc
+
+					if (this.topLeftArcRandom > 0.5) {
+						ctx.beginPath();
+						ctx.arc(this.x5, this.y5, this.radius5, 0, Math.PI * 2, false);
+						ctx.fillStyle = this.gradient5;
+						ctx.fill();
+						ctx.closePath();
+					}
+
+
+
+					// Top-right arc
+
+					if (this.topRightArcRandom > 0.5) {
+						ctx.beginPath();
+						ctx.arc(this.x6, this.y6, this.radius6, 0, Math.PI * 2, false);
+						ctx.fillStyle = this.gradient6;
+						ctx.fill();
+						ctx.closePath();
+					}
+
+
+
+					// Updown arc
+
+					if (this.updownArcRandom < 0.5) {
+						ctx.beginPath();
+						ctx.arc(this.x2, this.y2, this.radius2, 0, Math.PI * 2, false);
+						ctx.fillStyle = this.gradient2;
+						ctx.fill();
+						ctx.closePath();
+					}
+
+
+					// Middle arc
+
+					ctx.beginPath();
+					ctx.arc(this.x3, this.y3, this.radius3, 0, Math.PI * 2, false);
+					ctx.fillStyle = this.gradient3;
+					ctx.fill();
+					ctx.closePath();
+				}
+			}
+
+
+
+
+
+
+
+
+
+			function Tubes(color, height) {
+				this.width = Math.floor(innerWidth / 12.8);
+				this.height = height;
+				this.color = color;
+				this.random = Math.random();
+
+				if (tubes.length === 0) {
+					this.x = innerWidth
+				} else {
+					this.x = tubes[tubes.length - 1].x + Math.floor(innerWidth / 3.84)
+				}
+
+				this.gradientCreate = function() {
+					this.gradient = ctx.createLinearGradient(this.x, 0, this.x + this.width, 0);
+					this.gradient.addColorStop(0, '#333');
+					this.gradient.addColorStop(0.3, this.color);
+
+					if (this.color === '#0ABA0A') {
+						this.gradient.addColorStop(0.5, '#28EE07');
+					} else if (this.color === '#C1B607') {
+						this.gradient.addColorStop(0.5, '#FFF600');
+					} else if (this.color === '#BE5705') {
+						this.gradient.addColorStop(0.5, '#FF8400');
+					} else if (this.color === '#AE0505') {
+						this.gradient.addColorStop(0.5, '#FF0000');
+					} else if (this.color === '#B1067F') {
+						this.gradient.addColorStop(0.5, '#E405E4');
+					} else if (this.color === '#867C7C') {
+						this.gradient.addColorStop(0.5, '#B4B2B2');
+					}
+
+					this.gradient.addColorStop(0.7, this.color);
+					this.gradient.addColorStop(1, '#333');
+				}
+
+
+				if (this.random < 0.5) {
+
+					this.y = innerHeight;
+
+					this.draw = function() {
+						this.gradientCreate();
+
+						ctx.beginPath();
+						ctx.shadowColor = '#000';
+						ctx.shadowBlur = 33;
+						ctx.fillStyle = this.gradient;
+						ctx.strokeStyle = this.gradient;
+						ctx.fillRect(this.x, this.y - this.height, this.width, this.height);
+						ctx.fill();
+						ctx.stroke();
+					}
+				} else {
+					this.y = 0;
+
+					this.draw = function() {
+						this.gradientCreate();
+
+						ctx.beginPath();
+						ctx.shadowColor = '#000';
+						ctx.shadowBlur = 33;
+						ctx.fillStyle = this.gradient;
+						ctx.strokeStyle = this.gradient;
+						ctx.fillRect(this.x, this.y, this.width, this.height);
+						ctx.fill();
+						ctx.stroke();
+					}
+				}
+			}
+
+
+
+
+
+
+
+
+
+			function Score() {
+
+				for (const tube of tubes) {
+					if (Math.floor(bird.x) === tube.x + Math.floor(tube.width / 2)) {
+						score++;
+						tube.x = Math.floor(tube.x);
+						menuScore.innerHTML = `Score: ${score}`;
+
+						if (score > highscore) {
+							this.color = 'coral';
+							menuScore.style.color = 'coral';
+							menuScore.style.textShadow = '0 0 5px #3f3';
+
+							if (level === 0) {
+								localStorage.setItem('flappy_bird_highscore_easy', score);
+							} else if (level === 1) {
+								localStorage.setItem('flappy_bird_highscore_medium', score);
+							} else {
+								localStorage.setItem('flappy_bird_highscore_hard', score);
+							}
+						} else {
+							this.color = "lightblue";
+						}
+					}
+
+				}
+
+				if (score > 0) {
+					ctx.beginPath();
+					ctx.shadowColor = '';
+					ctx.shadowBlur = 0;
+					ctx.fillStyle = this.color;
+					ctx.font = `${bird.radius/0.8}px Audiowide`;
+					ctx.fillText(score, innerWidth / 2, bird.radius / 0.733);
+					ctx.stroke();
+				}
+
+			}
+
+
+
+
+
+
+
+
+
+			function Main() {
+
+				bird = new Bird;
+				bird.draw();
+
+				window.addEventListener('keydown', Start);
+				canvas.addEventListener('mousedown', Start);
+				tip.addEventListener('mousedown', Start);
+
+				skinRightArrow.style.display = "block";
+				skinLeftArrow.style.display = "block";
+				levelRightArrow.style.display = "block";
+				levelLeftArrow.style.display = "block";
+				levelText.style.display = "block";
+				levelHeader.style.display = "block";
+				skinHeader.style.display = "block";
+				tip.style.display = "block";
+
+				menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				menu.style.fontSize = `${innerHeight/20}px`;
+				levelHeader.style.fontSize = `${innerHeight/13}px`;
+				skinHeader.style.fontSize = `${innerHeight/13}px`;
+				levelText.style.fontSize = `${innerHeight/27}px`;
+				levelRightArrow.style.fontSize = `${innerHeight/18}px`;
+				skinRightArrow.style.fontSize = `${innerHeight/18}px`;
+				levelLeftArrow.style.fontSize = `${innerHeight/18}px`;
+				skinLeftArrow.style.fontSize = `${innerHeight/18}px`;
+
+			}
+
+
+
+
+
+
+
+
+
+			function Loops() {
+				loop1 = setInterval(function() {
+
+					if (clouds.length < 50) {
+						cloud = new Clouds(clouds[clouds.length - 1].x1 + Math.floor(Math.random() * (innerWidth / 2.74 - innerWidth / 9.6)) + innerWidth / 9.6, Math.floor(Math.random() * ((canvas.height - innerWidth / 19.2) - innerWidth / 19.2)) +
+							innerWidth / 19.2);
+						clouds.push(cloud);
+					}
+
+
+					if (level === 0) {
+
+						if (tubes.length < 10) {
+							tube = new Tubes("#0ABA0A", Math.floor(Math.random() * ((innerHeight - innerHeight / 1.543) - innerHeight / 6)) + innerHeight / 6);
+							tubes.push(tube);
+						} else if (tubes.length < 20) {
+							tube = new Tubes("#C1B607", Math.floor(Math.random() * ((innerHeight - innerHeight / 1.8) - innerHeight / 5)) + innerHeight / 5);
+							tubes.push(tube);
+						} else if (tubes.length < 30) {
+							tube = new Tubes("#BE5705", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.16) - innerHeight / 4)) + innerHeight / 4);
+							tubes.push(tube);
+						} else if (tubes.length < 40) {
+							tube = new Tubes("#AE0505", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.16) - innerHeight / 3)) + innerHeight / 3);
+							tubes.push(tube);
+						} else if (tubes.length < 50) {
+							tube = new Tubes("#B1067F", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.7) - innerHeight / 2.5)) + innerHeight / 2.5);
+							tubes.push(tube);
+						} else if (tubes.length < 70) {
+							tube = new Tubes("#867C7C", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.7) - innerHeight / 2)) + innerHeight / 2);
+							tubes.push(tube)
+
+						}
+					} else if (level === 1) {
+						if (tubes.length < 10) {
+							tube = new Tubes("#0ABA0A", Math.floor(Math.random() * ((innerHeight - innerHeight / 1.8) - innerHeight / 5)) + innerHeight / 5);
+							tubes.push(tube);
+						} else if (tubes.length < 20) {
+							tube = new Tubes("#C1B607", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.16) - innerHeight / 4)) + innerHeight / 4);
+							tubes.push(tube);
+						} else if (tubes.length < 30) {
+							tube = new Tubes("#BE5705", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.7) - innerHeight / 3.5)) + innerHeight / 3.5);
+							tubes.push(tube);
+						} else if (tubes.length < 40) {
+							tube = new Tubes("#AE0505", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.7) - innerHeight / 3)) + innerHeight / 3);
+							tubes.push(tube);
+						} else if (tubes.length < 50) {
+							tube = new Tubes("#B1067F", Math.floor(Math.random() * ((innerHeight - innerHeight / 3.6) - innerHeight / 2.5)) + innerHeight / 2.5);
+							tubes.push(tube);
+						} else if (tubes.length < 70) {
+							tube = new Tubes("#867C7C", Math.floor(Math.random() * ((innerHeight - innerHeight / 3.6) - innerHeight / 2)) + innerHeight / 2);
+							tubes.push(tube);
+
+						}
+					} else {
+						if (tubes.length < 10) {
+							tube = new Tubes("#0ABA0A", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.16) - innerHeight / 4)) + innerHeight / 4);
+							tubes.push(tube);
+						} else if (tubes.length < 20) {
+							tube = new Tubes("#C1B607", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.4) - innerHeight / 3.5)) + innerHeight / 3.5);
+							tubes.push(tube);
+						} else if (tubes.length < 30) {
+							tube = new Tubes("#BE5705", Math.floor(Math.random() * ((innerHeight - innerHeight / 2.7) - innerHeight / 3)) + innerHeight / 3);
+							tubes.push(tube);
+						} else if (tubes.length < 40) {
+							tube = new Tubes("#AE0505", Math.floor(Math.random() * ((innerHeight - innerHeight / 3.08) - innerHeight / 2.5)) + innerHeight / 2.5);
+							tubes.push(tube);
+						} else if (tubes.length < 50) {
+							tube = new Tubes("#B1067F", Math.floor(Math.random() * ((innerHeight - innerHeight / 3.6) - innerHeight / 2)) + innerHeight / 2);
+							tubes.push(tube);
+						} else if (tubes.length < 70) {
+							tube = new Tubes("#867C7C", Math.floor(Math.random() * ((innerHeight - innerHeight / 5.4) - innerHeight / 1.5)) + innerHeight / 1.5);
+							tubes.push(tube);
+
+						}
+					}
+
+				}, 50);
+
+
+
+				loop2 = setInterval(function() {
+					ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+					for (let cloud of clouds) {
+
+						if (cloud.x6 + cloud.radius6 * 2 > 0) {
+							cloud.x1 -= innerWidth / 3200;
+							cloud.x2 -= innerWidth / 3200;
+							cloud.x3 -= innerWidth / 3200;
+							cloud.x4 -= innerWidth / 3200;
+							cloud.x5 -= innerWidth / 3200;
+							cloud.x6 -= innerWidth / 3200;
+
+							if (cloud.x1 - cloud.radius1 * 2 < innerWidth) {
+								cloud.draw()
+							}
+						} else {
+							cloud = null
+						}
+
+					}
+
+					for (let tube of tubes) {
+
+						if (tube.x + tube.width + innerWidth / 96 > 0) {
+							tube.x -= 1;
+
+							if (tube.x - innerWidth / 96 < innerWidth) {
+								tube.draw()
+							}
+						} else {
+							tube = null
+						}
+					}
+
+					bird.move();
+					Score();
+					bird.draw();
+					bird.death();
+
+				}, 1000 / 140);
+			}
+
+
+
+
+
+
+
+
+
+			// Starting game function
+
+			function Start() {
+
+				if (event.keyCode === 13 || event.which === 1 || event.which === 3) {
+
+
+					// Enabling pause
+
+					startedGame = true;
+
+
+
+
+
+					// Enabling jump
+
+					window.addEventListener('keydown', Jump);
+					setTimeout(function() {
+						canvas.addEventListener('mousedown', MouseJump);
+						menu.addEventListener('mousedown', MouseUnpause)
+					}, 1);
+
+					window.addEventListener('keyup', function() {
+						window.addEventListener('keydown', Jump);
+					});
+
+
+
+
+
+					// Hiding the interface
+
+					skinRightArrow.style.display = "none";
+					skinLeftArrow.style.display = "none";
+					levelRightArrow.style.display = "none";
+					levelLeftArrow.style.display = "none";
+					levelText.style.display = "none";
+					levelHeader.style.display = "none";
+					skinHeader.style.display = "none";
+					tip.style.display = "none";
+
+
+
+
+					buttonPause.style.display = "block";
+
+
+
+
+
+					window.removeEventListener('keydown', Start);
+					canvas.removeEventListener('mousedown', Start);
+
+
+
+					// Starting the music
+					if (!muted) {
+						music.play()
+					}
+
+
+
+
+					// Drawing the first cloud
+
+					cloud = new Clouds(Math.floor(Math.random() * 300) + 100, Math.floor(Math.random() * ((innerHeight - 100) - 100) + 100));
+					clouds.push(cloud)
+					cloud.draw()
+
+
+
+
+					// Drawing the first tube
+
+					tube = new Tubes("#0ABA0A", Math.floor(Math.random() * (innerHeight / 2 - innerHeight / 4) + innerHeight / 4));
+					tubes.push(tube);
+					tube.draw();
+
+
+
+
+					// Starting the game loops
+
+					Loops()
+
+				}
+
+				if (event.keyCode === 37) {
+					if (!tab) {
+						skinLeftArrow.click()
+					} else {
+						levelLeftArrow.click()
+					}
+				}
+
+				if (event.keyCode === 39) {
+					if (!tab) {
+						skinRightArrow.click()
+					} else {
+						levelRightArrow.click()
+					}
+				}
+			}
+
+
+
+
+
+
+
+			function Mute() {
+
+				if (!muted && started) {
+					muted = true;
+
+					mute.style.backgroundImage = `url('flappy_bird_muted.png')`;
+					mute.style.backgroundSize = `250%`;
+					mute.style.backgroundPosition = 'center';
+
+					localStorage.setItem('flappy_bird_muted', '1');
+
+					music.pause();
+					death.volume = 0;
+				} else if (muted && started) {
+					muted = false;
+
+					if (!pause) {
+						music.play();
+					}
+
+					mute.style.backgroundImage = `url('flappy_bird_unmuted.png')`;
+					mute.style.backgroundSize = `250%`;
+					mute.style.backgroundPosition = 'center';
+
+					localStorage.setItem('flappy_bird_muted', '0');
+					death.volume = 0.2
+				}
+			}
+
+
+
+
+
+
+			function Pause() {
+				pause = true;
+
+				music.pause();
+
+				buttonPause.style.display = 'none';
+				menu.style.display = 'flex';
+
+				window.removeEventListener('keydown', Jump);
+				window.removeEventListener('mousedown', MouseJump)
+
+				userY = bird.y;
+
+				clearInterval(loop1);
+				clearInterval(loop2);
+			}
+
+
+
+
+
+
+
+			// Bird's falling
+
+			function Fall() {
+				bird.dy = innerHeight / 308.57
+			}
+
+
+
+
+
+
+
+
+			// Unpause on click
+
+			function MouseUnpause() {
+				if (event.which === 3) {
+					button.click()
+				}
+			}
+
+
+
+
+
+
+
+
+			// Jump on click
+
+			function MouseJump() {
+				if (event.which === 1) {
+					bird.dy = -innerHeight / 270;
+					clearTimeout(Fall)
+					setTimeout(Fall, 250);
+				} else if (event.which === 3) {
+					if (startedGame && !pause && button.innerHTML === '▷') {
+						Pause()
+					} else {
+						button.click()
+					}
+				}
+			}
+
+
+
+
+
+			function Jump() {
+				if (event.keyCode === 38 || event.keyCode === 32 || event.keyCode === 87) {
+					bird.dy = -innerHeight / 270;
+					clearTimeout(Fall)
+					setTimeout(Fall, 250);
+				}
+
+				window.removeEventListener('keydown', Jump);
+			}
+
+
+
+
+
+
+			window.addEventListener('keydown', Jump);
+
+
+
+
+
+
+
+
+
+			window.addEventListener('keydown', function() {
+
+				if ((event.keyCode === 27 || event.keyCode === 13) && startedGame && !pause && menu.style.display == 'none') {
+					Pause()
+				} else if ((event.keyCode === 27 || event.keyCode === 13) && pause && menu.style.display == 'flex' && button.innerHTML == '▷') {
+					setTimeout(function() {
+						window.addEventListener('keydown', Jump)
+					}, 1);
+					button.click();
+
+				} else if (event.keyCode === 13 && menu.style.display == 'flex' && button.innerHTML != '▷') {
+					button.click()
+				}
+
+				if (event.keyCode === 77) {
+					Mute()
+				}
+
+
+				if ((event.keyCode === 13 || event.keyCode === 32) && menu.style.display == '' && button.innerHTML == '▷') {
+					window.addEventListener('keydown', Jump);
+					button.click()
+				}
+
+
+				if (event.keyCode === 122) {
+					location.reload()
+				}
+
+
+				if (event.keyCode === 9 || event.keyCode === 40 || event.keyCode === 38) {
+					if (tab) {
+						tab = false
+					} else {
+						tab = true
+					}
+				}
+
+			});
+
+
+
+
+
+
+			mute.addEventListener('click', Mute)
+
+
+
+
+
+
+
+			skinHeader.addEventListener('click', function() {
+				if (tab) {
+					tab = false
+				}
+			});
+
+
+
+
+
+
+
+			levelHeader.addEventListener('click', function() {
+				if (!tab) {
+					tab = true
+				}
+			})
+
+
+
+
+
+
+
+
+
+			skinRightArrow.addEventListener('click', function() {
+
+				if (!muted) {
+					switch_sound.volume = 0.2;
+					switch_sound.currentTime = 0;
+					switch_sound.play()
+				}
+
+				skin !== 6 ? skin++ : skin = 0;
+
+				ctx.clearRect(0, 0, innerWidth, innerHeight);
+				bird.draw();
+
+				if (tab) {
+					tab = false
+				}
+
+				localStorage.setItem('flappy_bird_skin', skin)
+			});
+
+
+
+
+
+
+
+
+			skinLeftArrow.addEventListener('click', function() {
+
+				if (!muted) {
+					switch_sound.volume = 0.2;
+					switch_sound.currentTime = 0;
+					switch_sound.play()
+				}
+
+				skin !== 0 ? skin-- : skin = 6;
+
+				ctx.clearRect(0, 0, innerWidth, innerHeight);
+				bird.draw();
+
+				if (tab) {
+					tab = false
+				}
+
+				localStorage.setItem('flappy_bird_skin', skin)
+			});
+
+
+
+
+
+
+
+			levelRightArrow.addEventListener('click', function() {
+
+				if (!muted) {
+					switch_sound.volume = 0.2;
+					switch_sound.currentTime = 0;
+					switch_sound.play()
+				}
+
+				if (level === 2) {
+					level = 0;
+					levelText.innerHTML = "Easy";
+					levelText.style.color = "green";
+					highscore = highscoreEasy;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				} else if (level === 0) {
+					level = 1;
+					levelText.innerHTML = "Medium";
+					levelText.style.color = "orange";
+					highscore = highscoreMedium;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				} else {
+					level = 2;
+					levelText.innerHTML = "Hard";
+					levelText.style.color = "red";
+					highscore = highscoreHard;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				}
+
+				if (!tab) {
+					tab = true
+				}
+
+				localStorage.setItem('flappy_bird_level', level)
+			});
+
+
+
+
+
+
+
+
+			levelLeftArrow.addEventListener('click', function() {
+
+				if (!muted) {
+					switch_sound.volume = 0.2;
+					switch_sound.currentTime = 0;
+					switch_sound.play()
+				}
+
+				if (level === 1) {
+					level = 0;
+					levelText.innerHTML = "Easy";
+					levelText.style.color = "green";
+					highscore = highscoreEasy;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				} else if (level === 2) {
+					level = 1;
+					levelText.innerHTML = "Medium";
+					levelText.style.color = "orange";
+					highscore = highscoreMedium;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				} else {
+					level = 2;
+					levelText.innerHTML = "Hard";
+					levelText.style.color = "red";
+					highscore = highscoreHard;
+					menuHighscore.innerHTML = `Highscore: ${highscore}`;
+				}
+
+				if (!tab) {
+					tab = true
+				}
+
+				localStorage.setItem('flappy_bird_level', level)
+			});
+
+
+
+
+
+
+
+
+			levelText.addEventListener('click', function() {
+				levelRightArrow.click()
+			})
+
+
+
+
+
+
+
+
+
+			window.addEventListener('resize', function() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			});
+
+
+
+
+
+
+
+
+
+			button.addEventListener('click', function() {
+
+				if (!started) {
+					Main();
+				} else {
+					Loops()
+				}
+
+				if (this.innerHTML === '▷') {
+					if (!muted && started) {
+						music.play()
+					}
+
+					menu.style.display = 'none';
+
+				} else {
+					localStorage.setItem('flappy_bird_retry', '1');
+					location.reload()
+				}
+
+				started = true;
+				pause = false;
+
+				if (startedGame) {
+
+					buttonPause.style.display = 'block'
+
+					setTimeout(function() {
+						canvas.addEventListener('mousedown', MouseJump);
+						menu.addEventListener('mousedown', MouseUnpause);
+						window.addEventListener('keydown', Jump)
+					}, 1);
+				}
+			});
+
+
+
+
+
+
+			buttonPause.addEventListener('click', function() {
+				this.style.display = 'none';
+
+				pause = true;
+				window.removeEventListener('mousedown', MouseJump);
+				menu.style.display = 'flex';
+				music.pause();
+				userY = bird.y;
+
+				clearInterval(loop1);
+				clearInterval(loop2);
+			})
+
+
+
+
+
+
+
+
+			// if (!retry) {
+
+			// 	button.addEventListener('click', function() {
+
+			// 		if (!started) {
+			// 			Main();
+			// 			Start();
+			// 		} else {
+			// 			Loops()
+			// 		}
+
+			// 		if (this.innerHTML == '▷') {
+			// 			if (!muted && started) {
+			// 				music.play()
+			// 			}
+
+			// 			menu.style.display = 'none';
+
+			// 		} else {
+			// 			localStorage.setItem('flappy_bird_retry', '0');
+			// 			location.reload()
+			// 		}
+
+			// 		started = true;
+			// 		pause = false;
+
+			// 		setTimeout(function() {window.addEventListener('mousedown', MouseJump); window.addEventListener('keydown', Jump)}, 1);
+			// 	});
+
+
+			// 	button.click();
+			// 	localStorage.setItem('flappy_bird_retry', '1');
+
+			// }
+
+			// else {
+			// 	button.addEventListener('click', function() {
+
+			// 		if (!started) {
+			// 			Main();
+			// 		} else {
+			// 			Loops()
+			// 		}
+
+			// 		if (this.innerHTML == '▷') {
+			// 			if (!muted && started) {
+			// 				music.play()
+			// 			}
+
+			// 			menu.style.display = 'none';
+
+			// 		} else {
+			// 			localStorage.setItem('flappy_bird_retry', '0');
+			// 			location.reload()
+			// 		}
+
+			// 		started = true;
+			// 		pause = false;
+
+			// 		setTimeout(function() {window.addEventListener('mousedown', MouseJump); window.addEventListener('keydown', Jump)}, 1);
+			// 	});
+			// }
+
+			button.click();
+			localStorage.setItem('flappy_bird_retry', '0')
+		}
+
+
+		if (!retry) {
+			setTimeout(Game, 4000)
+		} else {
+			Game()
+		}
+	</script>
+
+</body>
+
+</html>
