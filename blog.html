@@ -97,9 +97,22 @@
 		}
 
 		.main-sample-card-header {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding-bottom: 10px;
+		}
+
+		.main-sample-card-header-header {
 			box-sizing: content-box;
-			text-align: center;
-			padding-bottom: 20px;
+			padding: 5px;
+		}
+
+		.main-sample-card-header-image {
+			width: 150px;
+			box-sizing: content-box;
+			padding: 5px;
+			filter: drop-shadow(0 0 1px #333);
 		}
 
 		.main-sample-card-close {
@@ -118,6 +131,15 @@
 		.main-sample-card-text {
 			height: 200px;
 			overflow-y: scroll;
+		}
+
+		.main-sample-card-text a {
+			color: #000000a9;
+			font-weight: bold;
+		}
+
+		.main-sample-card-text a:hover {
+			color: #000;
 		}
 
 		.main-sample-card-close:hover {
@@ -165,7 +187,6 @@
 			padding: 10px 10px 15px;
 			text-align: justify;
 			color: #777;
-			/* height: 150px */
 		}
 
 		.main-content-card-button {
@@ -196,11 +217,11 @@
 		<header>
 			<nav class="navigation-menu">
 				<div class="navigation-menu-content">
-					<a class="navigation-menu-content-index" href="/index.html">Home</a>
-					<a class="navigation-menu-content-profile" href="/profile.html">Profile</a>
-					<a class="navigation-menu-content-dashboard" href="/dashboard.html">Dashboard</a>
-					<a class="navigation-menu-content-faq" href="/faq.html">FAQ</a>
-					<a class="navigation-menu-content-blog" href="/blog.html">Blog</a>
+					<a class="navigation-menu-content-index" href="index.html">Home</a>
+					<a class="navigation-menu-content-profile" href="profile.html">Profile</a>
+					<a class="navigation-menu-content-dashboard" href="dashboard.html">Dashboard</a>
+					<a class="navigation-menu-content-faq" href="faq.html">FAQ</a>
+					<a class="navigation-menu-content-blog" href="blog.html">Blog</a>
 				</div>
 			</nav>
 		</header>
@@ -208,7 +229,7 @@
 		<main>
 			<section class="main-sample-card">
 				<article>
-					<h2 class="main-sample-card-header">Header</h2>
+					<div class="main-sample-card-header"></div>
 					<div class="main-sample-card-close">×</div>
 					<p class="main-sample-card-text">Lorem ipsum dolor sit amet consectetur, adipisicing
 						elit. Esse suscipit voluptatem omnis, pariatur delectus natus ipsum laudantium vel vitae

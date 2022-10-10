@@ -29,8 +29,7 @@
     [...buttonElements].forEach((buttonElement, index) => {
         buttonElement.onclick = () => {
             const { header, text } = data[index];
-
-            sampleCardHeader.innerText = header;
+            sampleCardHeader.innerHTML = header;
             sampleCardText.innerHTML = text;
             blurryElement.style.display = null;
             sampleCardElement.style.display = 'block';
